@@ -1,14 +1,16 @@
-import { createStore } from 'vuex';
+import { defineStore } from 'pinia';
 
-export default createStore({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
+export default defineStore('store', {
+  state: () => ({
+    count: 0,
+    isMobileView: window.innerHeight > window.innerWidth,
+  }),
   actions: {
-  },
-  modules: {
+    isMobile() {
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        return true;
+      }
+      return false;
+    },
   },
 });

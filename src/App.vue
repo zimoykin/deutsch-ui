@@ -1,10 +1,21 @@
 <template>
+  <Header />
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav>
-  <router-view/>
+  <router-view />
 </template>
+
+<script setup lang="ts">
+import Header from '@/components/Header.component.vue';
+import useStore from '@/store';
+
+const store = useStore();
+window.addEventListener('resize', () => {
+  store.isMobileView = window.innerHeight > window.innerWidth;
+}, { passive: true });
+</script>
 
 <style lang="scss">
 #app {
