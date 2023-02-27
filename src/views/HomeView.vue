@@ -1,17 +1,12 @@
 <template>
-  <div class="home">
-    <HomeComp />
-  </div>
+  <Container :component="homeC" />
 </template>
 
-<script lang="ts">
-import HomeComp from '@/components/Home.component.vue';
-import { Options, Vue } from 'vue-class-component';
+<script setup lang="ts">
+import Container from '@/components/Container.component.vue';
+import Home from '@/components/Home.component.vue';
+import { markRaw } from 'vue';
 
-@Options({
-  components: {
-    HomeComp,
-  },
-})
-export default class HomeView extends Vue {}
+const homeC = markRaw(Home);
+
 </script>

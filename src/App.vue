@@ -1,10 +1,12 @@
 <template>
   <Header />
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <div :style="{ height: '85vh'}"
+  class="w-full h-full flex items-center justify-center bg-slate-400">
+    <div :style="store.isMobileView ? { width: '100%', } : { maxWidth: '1080px', width: '75%', }"
+      class="flex h-full rounded-md m-1 justify-center bg-slate-200">
+      <router-view />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
