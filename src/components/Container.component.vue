@@ -1,15 +1,24 @@
 <template>
     <div>
-        <component :is="props.component"/>
+        <component :is="activeTab" />
     </div>
 </template>
 
 <script setup lang="ts">
 import useStore from '@/store';
+import { computed } from '@vue/reactivity';
 import { defineProps } from 'vue';
 
 const props = defineProps({
-  component: Object,
+    component: {
+        type: Array,
+        default: () => [],
+    },
+    activeTab: Number,
+});
+const activeTab = computed(() => {
+    const index = props.activeTab || 0;
+    return props.component[index];
 });
 
 const store = useStore();

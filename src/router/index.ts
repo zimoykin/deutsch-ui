@@ -1,25 +1,60 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import Universal from '@/views/UniversalView.vue';
 import HomeView from '../views/HomeView.vue';
 
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView,
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
-  },
+    {
+        path: '/',
+        name: 'home',
+        component: Universal,
+        props: { page: 'home' },
+    },
+    {
+        path: '/flash-card',
+        name: 'flashCard',
+        component: () => import('../views/FlashCardView.vue'),
+    },
+    {
+        path: '/profile',
+        name: 'name',
+        component: Universal,
+        props: { page: 'profile' },
+    },
+    {
+        path: '/add-new',
+        name: 'add-new',
+        component: Universal,
+        props: { page: 'add-new' },
+    },
+    {
+        path: '/random',
+        name: 'random',
+        component: Universal,
+        props: { page: 'random' },
+    },
+    {
+        path: '/konjugation',
+        name: 'konjugation',
+        component: Universal,
+        props: { page: 'konjugation' },
+    },
+    {
+        path: '/dictionary',
+        name: 'dictionary',
+        component: Universal,
+        props: { page: 'dictionary' },
+    },
+    {
+        path: '/search',
+        name: 'search',
+        component: Universal,
+        props: { page: 'search' },
+    },
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes,
+    history: createWebHistory(process.env.BASE_URL),
+    routes,
 });
 
 export default router;

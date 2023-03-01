@@ -1,5 +1,5 @@
 <template>
-  <Container :component="homeC" />
+  <Container :component="[homeC]" :active-tab="0" />
 </template>
 
 <script setup lang="ts">

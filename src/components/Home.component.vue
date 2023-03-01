@@ -1,34 +1,40 @@
 <template>
     <div class="grid m-1">
         <div class="flex justify-center m-1">
-            <div :style="{ width: width66, height }" class="rounded-lg shadow-md items-center justify-center flex bg-[#96C5CF] mr-2 cursor-pointer"
+            <div :style="{ width: width66, height }"
+                class="rounded-lg shadow-md items-center justify-center flex bg-[#96C5CF] mr-2 cursor-pointer"
                 @click="click.flashCards()" @keydown="click.flashCards()">
                 <p> FLASH CARDS</p>
             </div>
-            <div :style="{ width: width33, height }" class="rounded-lg shadow-md items-center justify-center flex bg-[#F4B9BA] cursor-pointer"
+            <div :style="{ width: width33, height }"
+                class="rounded-lg shadow-md items-center justify-center flex bg-[#F4B9BA] cursor-pointer"
                 @click="click.profile()" @keydown="click.profile()">
                 <p> PROFILE</p>
             </div>
         </div>
 
         <div class="flex justify-center m-1">
-            <div :style="{ width: width33, height }" class="rounded-lg shadow-md items-center justify-center flex bg-[#F6E4DA] mr-2 cursor-pointer" @click="click.addNew()"
-                @keydown="click.addNew()">
+            <div :style="{ width: width33, height }"
+                class="rounded-lg shadow-md items-center justify-center flex bg-[#F6E4DA] mr-2 cursor-pointer"
+                @click="click.addNew()" @keydown="click.addNew()">
                 <p> ADD NEW</p>
             </div>
-            <div :style="{ width: width66, height }" class="rounded-lg shadow-md items-center justify-center flex bg-[#C2DDD6] cursor-pointer" @keydown="click.random()"
-                @click="click.random()">
+            <div :style="{ width: width66, height }"
+                class="rounded-lg shadow-md items-center justify-center flex bg-[#C2DDD6] cursor-pointer"
+                @keydown="click.random()" @click="click.random()">
                 <p> RANDOM</p>
             </div>
         </div>
 
         <div class="flex justify-center m-1">
-            <div :style="{ width: width66, height }" class="rounded-lg shadow-md items-center justify-center flex bg-[#F4B9BA] mr-2 cursor-pointer"
+            <div :style="{ width: width66, height }"
+                class="rounded-lg shadow-md items-center justify-center flex bg-[#F4B9BA] mr-2 cursor-pointer"
                 @keydown="click.dictionary()" @click="click.dictionary()">
                 <p> DICTIONARY</p>
             </div>
-            <div :style="{ width: width33, height }" class="rounded-lg shadow-md items-center justify-center flex bg-[#96C5CF] cursor-pointer" @keydown="click.konjugation()"
-                @click="click.konjugation()">
+            <div :style="{ width: width33, height }"
+                class="rounded-lg shadow-md items-center justify-center flex bg-[#96C5CF] cursor-pointer"
+                @keydown="click.konjugation()" @click="click.konjugation()">
                 <p>KONjU - GATION</p>
             </div>
         </div>
@@ -36,6 +42,7 @@
 </template>
 
 <script setup lang="ts">
+import router from '@/router';
 import useStore from '@/store';
 import { ref, onMounted } from 'vue';
 
@@ -48,36 +55,36 @@ const width33 = ref('0px');
 const height = ref('0px');
 
 const width = () => {
-  let size = (window.innerWidth * (store.isMobileView ? 1 : 0.75));
-  size = store.isMobileView ? size : Math.min(size, 640);
-  width66.value = `${size * 53 / 100}px`;
-  width33.value = `${size * 33 / 100}px`;
+    let size = (window.innerWidth * (store.isMobileView ? 1 : 0.75));
+    size = store.isMobileView ? size : Math.min(size, 640);
+    width66.value = `${size * 53 / 100}px`;
+    width33.value = `${size * 33 / 100}px`;
 
-  height.value = `${window.innerHeight * 0.23}px`;
+    height.value = `${window.innerHeight * 0.23}px`;
 };
 onMounted(() => {
-  width();
+    width();
 });
 
 const click = {
-  dictionary() {
-    console.log(store.count);
-  },
-  konjugation() {
-    console.log(store.count);
-  },
-  addNew() {
-    console.log(store.count);
-  },
-  flashCards() {
-    console.log(store.count);
-  },
-  profile() {
-    console.log(store.count);
-  },
-  random() {
-    console.log(store.count);
-  },
+    dictionary() {
+        router.push('/dictionary');
+    },
+    konjugation() {
+        router.push('/konjugation');
+    },
+    addNew() {
+        router.push('/add-new');
+    },
+    flashCards() {
+        router.push('/flash-card');
+    },
+    profile() {
+        router.push('/profile');
+    },
+    random() {
+        router.push('/random');
+    },
 };
 
 window.addEventListener('resize', () => width());

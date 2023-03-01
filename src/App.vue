@@ -15,7 +15,7 @@ import useStore from '@/store';
 
 const store = useStore();
 window.addEventListener('resize', () => {
-  store.isMobileView = window.innerHeight > window.innerWidth;
+    store.isMobileView = window.innerHeight > window.innerWidth;
 }, { passive: true });
 </script>
 
