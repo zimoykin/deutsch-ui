@@ -50,6 +50,12 @@ const routes: Array<RouteRecordRaw> = [
         component: Universal,
         props: { page: 'search' },
     },
+    {
+        path: '/category',
+        name: 'category',
+        component: Universal,
+        props: { page: 'category' },
+    },
 ];
 
 const router = createRouter({
