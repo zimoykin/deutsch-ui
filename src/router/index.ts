@@ -11,7 +11,8 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/flash-card',
         name: 'flashCard',
-        component: () => import('../views/FlashCardView.vue'),
+        component: Universal,
+        props: { page: 'flashCard' },
     },
     {
         path: '/profile',
