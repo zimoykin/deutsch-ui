@@ -3,7 +3,7 @@
         <SpinnerComponent />
     </div>
     <div v-else class="grid">
-        <div class='grid justify-center items-center text-center w-full'>
+        <div class='grid justify-center items-center text-center w-full m-2'>
             <div class="grid justify-center items-center text-center">
                 <img class="rounded-full border-solid border-black border-4 max-xl:" :src="image" alt="avatar" />
                 <p :style="{ fontFamily: 'Gothic A1', fontSize: 'xxx-large', fontWeight: 'lighter' }">{{
@@ -44,12 +44,12 @@
 <script setup lang="ts">
 import useStore from '@/store';
 import { ref } from 'vue';
+import image from '@/assets/img/wolf.png';
 import SpinnerComponent from './Spinner.component.vue';
 
 const environment = ref();
 const isLoading = ref();
 const userName = ref();
-const image = ref();
 const email = ref();
 const store = useStore();
 
