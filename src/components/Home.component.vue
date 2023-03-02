@@ -1,5 +1,5 @@
 <template>
-    <div class="grid m-1">
+    <div class="grid m-2">
         <div class="flex justify-center m-1">
             <div :style="{ width: width66, height }"
                 class="rounded-lg shadow-md items-center justify-center flex bg-[#96C5CF] mr-2 cursor-pointer"
@@ -56,7 +56,7 @@ const height = ref('0px');
 
 const width = () => {
     let size = (window.innerWidth * (store.isMobileView ? 1 : 0.75));
-    size = store.isMobileView ? size : Math.min(size, 640);
+    size = store.isMobileView ? size : Math.min(size, 720);
     width66.value = `${size * 53 / 100}px`;
     width33.value = `${size * 33 / 100}px`;
 
@@ -77,7 +77,7 @@ const click = {
         router.push('/add-new');
     },
     flashCards() {
-        router.push('/flash-card');
+        router.push('/category');
     },
     profile() {
         router.push('/profile');

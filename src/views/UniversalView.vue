@@ -1,5 +1,6 @@
 <template>
-    <Container :component="[compHome, compProfile, compAddNew, compRandom, compDictionary, compKonjugation, compSearch]"
+    <Container
+        :component="[compHome, compProfile, compAddNew, compRandom, compDictionary, compKonjugation, compSearch, compCategory]"
         :activeTab="activeTab" />
 </template>
 
@@ -15,6 +16,7 @@ import Random from '@/components/Random.component.vue';
 import Dictionary from '@/components/Dictionary.component.vue';
 import Konjugation from '@/components/Konjugation.component.vue';
 import Search from '@/components/Search.component.vue';
+import Category from '@/components/Category.component.vue';
 //
 const props = defineProps({
     page: String,
@@ -27,20 +29,27 @@ const compRandom = markRaw(Random);
 const compDictionary = markRaw(Dictionary);
 const compKonjugation = markRaw(Konjugation);
 const compSearch = markRaw(Search);
+const compCategory = markRaw(Category);
 
-const activeTab = ref(0);
+const determineIndexPage = (): number => {
+    switch (props.page) {
+        case 'profile': return 1;
+        case 'home': return 0;
+        case 'add-new': return 2;
+        case 'random': return 3;
+        case 'dictionary': return 4;
+        case 'konjugation': return 5;
+        case 'search': return 6;
+        case 'category': return 7;
+        default: return 0;
+    }
+};
+
+const activeTab = ref(determineIndexPage());
 
 watch(() => props.page, () => {
-    switch (props.page) {
-        case 'profile': activeTab.value = 1; break;
-        case 'home': activeTab.value = 0; break;
-        case 'add-new': activeTab.value = 2; break;
-        case 'random': activeTab.value = 3; break;
-        case 'dictionary': activeTab.value = 4; break;
-        case 'konjugation': activeTab.value = 5; break;
-        case 'search': activeTab.value = 6; break;
-        default: activeTab.value = 0; break;
-    }
+    console.log(props.page);
+    activeTab.value = determineIndexPage();
 });
 
 </script>
