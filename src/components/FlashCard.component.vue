@@ -114,7 +114,7 @@ const click = {
     skip() {
         console.log('click');
     },
-    tryAnswer(word: string) {
+    tryAnswer(_word: string) {
         console.log('click');
     },
 };
