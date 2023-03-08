@@ -1,0 +1,47 @@
+<template>
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center m-1">
+        <div v-if="isLoading">
+            <SpinnerComponent />
+        </div>
+        <div v-else>
+            <h1 class="bg-red-900 text-white font-bold p-2 mb-4 rounded-md shadow-2xl hover:bg-transparent">Herzlich
+                willkommen!
+            </h1>
+            <div class="grid ease-in-out">
+                <label for="email">
+                    <input id="email" class="p-4 rounded-md shadow-2xl my-1" v-bind="email" placeholder="email"
+                        type="email" />
+                </label>
+                <label for="password">
+                    <input id='password' class="p-4 rounded-md shadow-2xl my-1" v-bind="password" placeholder="password"
+                        type="password" />
+                </label>
+            </div>
+            <div class="bg-green-200 mt-4 p-4 cursor-pointer rounded-md shadow-2xl hover:bg-slate-700 hover:text-white"
+                @click="login">
+                <p> login </p>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script setup lang="ts">
+import useStore from '@/store';
+import { ref } from 'vue';
+import SpinnerComponent from './Spinner.component.vue';
+
+const store = useStore();
+
+const isLoading = ref(false);
+const email = ref<string>();
+const password = ref<string>();
+
+const login = () => {
+    isLoading.value = true;
+    setTimeout(() => {
+        isLoading.value = false;
+        store.isLogined = true;
+    }, 3000);
+};
+
+</script>

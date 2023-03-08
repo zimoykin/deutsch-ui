@@ -1,22 +1,26 @@
 <template>
-  <Header />
-  <div :style="{ height: '85vh'}"
-  class="w-full h-full flex items-center justify-center bg-slate-400">
-    <div :style="store.isMobileView ? { width: '100%', } : { maxWidth: '1080px', width: '75%', }"
-      class="flex h-full rounded-md m-1 justify-center bg-slate-200">
-      <router-view />
+  <LoginComponent v-if="!store.isLogined" />
+  <div v-else>
+    <Header />
+    <div :style="{ height: '85vh' }" class="w-full h-full flex items-center justify-center bg-slate-400">
+      <div :style="store.isMobileView ? { width: '100%', } : { maxWidth: '1080px', width: '75%', }"
+        class="flex h-full rounded-md m-1 justify-center bg-slate-200">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import Header from '@/components/Header.component.vue';
+import LoginComponent from '@/components/Login.component.vue';
 import useStore from '@/store';
 
 const store = useStore();
 window.addEventListener('resize', () => {
     store.isMobileView = window.innerHeight > window.innerWidth;
 }, { passive: true });
+
 </script>
 
 <style lang="scss">

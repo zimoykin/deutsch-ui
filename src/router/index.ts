@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import Universal from '@/views/UniversalView.vue';
+import LoginView from '@/views/LoginView.vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -7,6 +8,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'home',
         component: Universal,
         props: { page: 'home' },
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: LoginView,
     },
     {
         path: '/flash-card',
