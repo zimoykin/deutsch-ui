@@ -87,7 +87,7 @@ const addTopic = () => {
     }
 };
 
-const updateTopic = (value: any, index: number) => {
+const updateTopic = (value: Record<string, any>, index: number) => {
     let data = topics.value[index];
     if (data !== undefined) {
         data = value.data;
