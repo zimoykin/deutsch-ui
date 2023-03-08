@@ -1,15 +1,25 @@
 <template>
     <div class="grid my-2 w-full ">
-        <div class="flex items-center justify-center mx-2 bg-red-400 bg-opacity-40 rounded-md py-2">
+        <div class="flex items-center justify-center mx-2 bg-red-400 bg-opacity-30 rounded-md py-2">
             <label for="germanWord" class="rounded-md grid items-center justify-center">
+                <p class="text-left">ARTIKEL</p>
+                <span class="block bg-gray-500 rounded-md">
+                    <select :style="{ width: `${Number(width) * 0.20}px`, padding: '10px' }"
+                        class="m-0.5 rounded-md shadow-md" id="artikel" type="text" v-model="artikelSelected">
+                        <option v-for="(key) in Object.keys(artikel)" :key="key" :value="key">{{ key.toUpperCase() }}
+                        </option>
+                    </select>
+                </span>
+            </label>
+            <label for="germanWord" class="rounded-md grid items-center justify-center ml-1">
                 <p class="text-left">GERMAN</p>
                 <span class="block bg-gray-500 rounded-md">
-                    <input :style="{ width: `${Number(width) - 20}px`, padding: '10px' }" class="m-0.5 rounded-md shadow-md"
-                        id="germanWord" type="text" v-model="germanWord">
+                    <input :style="{ width: `${Number(width) - 20 - Number(width) * 0.20}px`, padding: '10px' }"
+                        class="m-0.5 rounded-md shadow-md" id="germanWord" type="text" v-model="germanWord">
                 </span>
             </label>
         </div>
-        <div class="flex items-center justify-center m-2 bg-slate-400 bg-opacity-40 rounded-md py-2">
+        <div class="flex items-center justify-center m-2 bg-slate-400 bg-opacity-30 rounded-md py-2">
             <div class="items-center justify-center mr-2">
                 <label for="englishWord" class="rounded-md grid items-center justify-center">
                     <p class="text-left">ENGLISH</p>
@@ -30,13 +40,17 @@
             </div>
         </div>
 
-        <div class="flex justify-center mx-2 bg-blue-400 bg-opacity-40 rounded-md py-2">
+        <div class="flex justify-center mx-2 bg-blue-400 bg-opacity-30 rounded-md py-2">
             <div class="justify-center mr-2">
                 <label for="level">
                     <p class="text-left">LEVEL</p>
                     <span class="block bg-gray-500 rounded-md">
-                        <input :style="{ width: `${(Number(width) - 40) / 2}px`, padding: '10px' }"
+                        <select :style="{ width: `${(Number(width) - 40) / 2}px`, padding: '10px' }"
                             class="m-0.5 rounded-md shadow-md" id="level" type="text" v-model="level">
+                            <option v-for="key in ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']" :key="key" :value="key">{{
+                                key.toUpperCase() }}
+                            </option>
+                        </select>
                     </span>
                 </label>
             </div>
@@ -58,13 +72,21 @@
             </div>
         </div>
     </div>
+
+    <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div class="bg-green-300 px-8 py-2 rounded-2xl shadow cursor-pointer hover:bg-green-400">
+            <p>SAVE</p>
+        </div>
+    </div>
 </template>
 
 <script setup lang="ts">
 import useStore from '@/store';
+import artikel from '@/types/artikel';
 import { ref } from 'vue';
 
 const store = useStore();
+const artikelSelected = ref();
 const germanWord = ref();
 const englishWord = ref();
 const russianWord = ref();
