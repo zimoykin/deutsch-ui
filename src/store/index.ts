@@ -7,12 +7,12 @@ export default defineStore('store', {
         isLogined: false,
     }),
     actions: {
-        isMobile() {
-            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                return true;
-            }
-            return false;
-        },
+        // isMobile() {
+        //     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        //         return true;
+        //     }
+        //     return false;
+        // },
         logout() {
             localStorage.clear();
             this.isLogined = false;

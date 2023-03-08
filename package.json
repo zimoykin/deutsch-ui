@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "lint-serve": "npm run lint --fix && npm run serve"
   },
   "dependencies": {
     "@vue/reactivity": "^3.2.47",

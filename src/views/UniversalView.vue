@@ -1,6 +1,7 @@
 <template>
     <Container
-        :component="[compHome, compProfile, compAddNew, compRandom, compDictionary, compKonjugation, compSearch, compCategory]"
+        :style="{ backgroundColor: hexToRgbA(backgroundColor, .7), width: '100%', transition: 'background-color 1s', 'animation-delay': '1s' }"
+        :component="[compHome, compProfile, compAddNew, compRandom, compDictionary, compKonjugation, compSearch, compCategory, compFlashCard]"
         :activeTab="activeTab" />
 </template>
 
@@ -17,10 +18,14 @@ import Dictionary from '@/components/Dictionary.component.vue';
 import Konjugation from '@/components/Konjugation.component.vue';
 import Search from '@/components/Search.component.vue';
 import Category from '@/components/Category.component.vue';
+import FlashCardComponent from '@/components/FlashCard.component.vue';
+import { useBackgroundColor, hexToRgbA } from '@/composable/useBackgroundColor';
 //
 const props = defineProps({
     page: String,
 });
+
+let backgroundColor = useBackgroundColor(props.page);
 
 const compHome = markRaw(Home);
 const compProfile = markRaw(Profile);
@@ -30,6 +35,7 @@ const compDictionary = markRaw(Dictionary);
 const compKonjugation = markRaw(Konjugation);
 const compSearch = markRaw(Search);
 const compCategory = markRaw(Category);
+const compFlashCard = markRaw(FlashCardComponent);
 
 const determineIndexPage = (): number => {
     switch (props.page) {
@@ -41,6 +47,7 @@ const determineIndexPage = (): number => {
         case 'konjugation': return 5;
         case 'search': return 6;
         case 'category': return 7;
+        case 'flashCard': return 8;
         default: return 0;
     }
 };
@@ -50,6 +57,7 @@ const activeTab = ref(determineIndexPage());
 watch(() => props.page, () => {
     console.log(props.page);
     activeTab.value = determineIndexPage();
+    backgroundColor = useBackgroundColor(props.page);
 });
 
 </script>
