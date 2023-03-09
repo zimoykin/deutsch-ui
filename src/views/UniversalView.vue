@@ -15,7 +15,7 @@ import {
 import AddNew from '@/components/AddNew.component.vue';
 import Random from '@/components/Random.component.vue';
 import Dictionary from '@/components/Dictionary.component.vue';
-import Konjugation from '@/components/Konjugation.component.vue';
+import Konjugation from '@/components/KonjugationAssignment.component.vue';
 import Search from '@/components/Search.component.vue';
 import Category from '@/components/Category.component.vue';
 import FlashCardComponent from '@/components/FlashCard.component.vue';

@@ -19,5 +19,6 @@ module.exports = {
         'no-mixed-operators': 'off',
         indent: ['error', 4, { SwitchCase: 1 }],
         'vuejs-accessibility/click-events-have-key-events': 'off',
+        'import/prefer-default-export': 'off',
     },
 };

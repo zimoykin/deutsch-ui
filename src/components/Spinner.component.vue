@@ -7,9 +7,6 @@
             <div></div>
         </div>
     </div>
-    <div class="flex w-full h-full justify-center">
-        <p>...LOADING</p>
-    </div>
 </template>
 <script setup lang="ts">
 </script>
