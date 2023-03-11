@@ -22,5 +22,15 @@ html {
 
 .animation-x {
     animation-name: fadeIn;
-    animation-duration: 0.7s
+    animation-duration: 0.8s
+}
+
+.animation-2x {
+    animation-name: fadeIn;
+    animation-duration: 0.4s
+}
+
+.animation-3x {
+    animation-name: fadeIn;
+    animation-duration: 0.2s
 }

@@ -9,12 +9,12 @@
 
                     <div class="flex justify-center m-1">
                         <div :style="{ width: width66, height }" v-if="item[0]"
-                            class="rounded-lg shadow-md items-center justify-center flex bg-[#96C5CF] mr-2 cursor-pointer"
+                            class="animation-2x rounded-lg shadow-md items-center justify-center flex bg-[#96C5CF] mr-2 cursor-pointer"
                             @click="click.flashCard(item[0])" @keydown="click.flashCard(item[0])">
                             <p> {{ item[0] }}</p>
                         </div>
                         <div v-if="item[1]" :style="{ width: width33, height }"
-                            class="rounded-lg shadow-md items-center justify-center flex bg-[#F4B9BA] cursor-pointer"
+                            class="animation-x rounded-lg shadow-md items-center justify-center flex bg-[#F4B9BA] cursor-pointer"
                             @click="click.flashCard(item[0])" @keydown="click.flashCard(item[0])">
                             <p> {{ item[1] }}</p>
                         </div>
@@ -22,12 +22,12 @@
 
                     <div class="flex justify-center m-1">
                         <div v-if="item[2]" :style="{ width: width33, height }"
-                            class="rounded-lg shadow-md items-center justify-center flex bg-[#F6E4DA] mr-2 cursor-pointer"
+                            class="animation-3x rounded-lg shadow-md items-center justify-center flex bg-[#F6E4DA] mr-2 cursor-pointer"
                             @click="click.flashCard(item[0])" @keydown="click.flashCard(item[0])">
                             <p> {{ item[2] }}</p>
                         </div>
                         <div v-if="item[3]" :style="{ width: width66, height }"
-                            class="rounded-lg shadow-md items-center justify-center flex bg-[#C2DDD6] cursor-pointer"
+                            class="animation-3x rounded-lg shadow-md items-center justify-center flex bg-[#C2DDD6] cursor-pointer"
                             @keydown="click.flashCard(item[0])" @click="click.flashCard(item[0])">
                             <p> {{ item[3] }}</p>
                         </div>

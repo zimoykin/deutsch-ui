@@ -1,5 +1,5 @@
 <template>
-    <div  class="animation-x">
+    <div  class="">
         <component :is="activeTab" />
     </div>
 </template>

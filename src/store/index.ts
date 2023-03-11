@@ -4,7 +4,7 @@ export default defineStore('store', {
     state: () => ({
         count: 0,
         isMobileView: window.innerHeight > window.innerWidth,
-        isLogined: false,
+        isLogined: localStorage.getItem('accessToken') !== null,
     }),
     actions: {
         // isMobile() {
