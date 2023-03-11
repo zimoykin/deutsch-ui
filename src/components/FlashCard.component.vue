@@ -1,5 +1,5 @@
 <template>
-    <div class="grid justify-center items-center">
+    <div class="grid justify-center items-center animation-x">
         <div v-if="isLoading">
             <SpinnerComponent />
         </div>
@@ -73,7 +73,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import useStore from '@/store/index';
-import SpinnerComponent from './Spinner.component.vue';
+import SpinnerComponent from './shared/Spinner.component.vue';
 
 const store = useStore();
 const isLoading = ref(false);

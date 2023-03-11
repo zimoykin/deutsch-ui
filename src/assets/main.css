@@ -9,3 +9,18 @@ input:focus, textarea:focus {
 html { 
     background-color:  rgb(148 163 184);
 }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+.animation-x {
+    animation-name: fadeIn;
+    animation-duration: 0.7s
+}

@@ -1,5 +1,5 @@
 <template>
-    <div class="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center m-1">
+    <div class="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center m-1 animation-x">
         <div v-if="isLoading">
             <SpinnerComponent />
         </div>
@@ -28,7 +28,7 @@
 <script setup lang="ts">
 import useStore from '@/store';
 import { ref } from 'vue';
-import SpinnerComponent from './Spinner.component.vue';
+import SpinnerComponent from './shared/Spinner.component.vue';
 
 const store = useStore();
 
