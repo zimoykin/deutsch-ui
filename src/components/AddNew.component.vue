@@ -1,6 +1,6 @@
 <template>
-    <div class="grid my-2 animation-x">
-        <div class="flex items-center justify-center mx-1 bg-red-400 bg-opacity-30 rounded-md py-2">
+    <div class="grid my-2">
+        <div class="animation-3x flex items-center justify-center mx-1 bg-red-400 bg-opacity-30 rounded-md py-2 px-1">
             <div class="mr-1">
                 <label for="artikel" class="rounded-md grid items-center justify-center">
                     <p class="text-left">ARTIKEL</p>
@@ -17,7 +17,7 @@
                 </label>
             </div>
         </div>
-        <div class="flex items-center justify-center m-2 bg-slate-400 bg-opacity-30 rounded-md py-2">
+        <div class="animation-2x flex items-center justify-center m-2 bg-slate-400 bg-opacity-30 rounded-md py-2 px-1">
             <div class="items-center justify-center mr-1">
                 <label for="englishWord" class="rounded-md grid items-center justify-center">
                     <p class="text-left">ENGLISH</p>
@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <div class="flex justify-center mx-2 bg-blue-400 bg-opacity-30 rounded-md py-2">
+        <div class="animation-3x flex justify-center mx-2 bg-blue-400 bg-opacity-30 rounded-md py-2 px-1">
             <div class="justify-center mr-1">
                 <label for="level">
                     <p class="text-left">LEVEL</p>
@@ -67,8 +67,8 @@
         </div>
     </div>
 
-    <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div class="bg-green-300 px-8 py-2 rounded-2xl shadow cursor-pointer hover:bg-green-400">
+    <div class="animation-x absolute bottom-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div class="bg-green-300 px-8 py-2 rounded shadow cursor-pointer hover:bg-green-400">
             <p>SAVE</p>
         </div>
     </div>

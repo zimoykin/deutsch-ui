@@ -41,6 +41,7 @@ const login = () => {
     setTimeout(() => {
         isLoading.value = false;
         store.isLogined = true;
+        localStorage.setItem('accessToken', 'fakeToken');
     }, 3000);
 };
 

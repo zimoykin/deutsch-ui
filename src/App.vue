@@ -1,5 +1,5 @@
 <template>
-  <LoginComponent v-if="store.isLogined" />
+  <LoginComponent v-if="!store.isLogined" />
   <div v-else>
     <Header />
     <div :style="{ height: '85vh' }" class="w-full h-full flex items-center justify-center bg-slate-400">
