@@ -3,21 +3,35 @@
 @tailwind utilities;
 
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
     outline: none;
 }
-html { 
-    background-color:  rgb(148 163 184);
+
+html {
+    background: rgb(238, 174, 202);
+    background: -moz-radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+    background: -webkit-radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+    background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#eeaeca", endColorstr="#94bbe9", GradientType=1);
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0
-    }
+input,
+textarea {
+    font-size: 16px !important;
+}
 
-    to {
-        opacity: 1
-    }
+textarea:focus,
+input:focus {
+    outline: none;
+}
+
+*:focus {
+    outline: none;
+}
+
+input:focus {
+    outline: none;
 }
 
 .animation-x {
@@ -33,4 +47,14 @@ html {
 .animation-3x {
     animation-name: fadeIn;
     animation-duration: 0.2s
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
 }

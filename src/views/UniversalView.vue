@@ -1,12 +1,13 @@
 <template>
     <Container
-        :style="{ backgroundColor: hexToRgbA(backgroundColor, .7), width: '100%', transition: 'background-color 1s', 'animation-delay': '1s' }"
+        class="shadow-2xl"
+        :style="{ ...backgroundColor, width: '100%', transition: 'background-color 1s', 'animation-delay': '1s' }"
         :component="[compHome, compProfile, compAddNew, compRandom, compDictionary, compKonjugation, compSearch, compCategory, compFlashCard]"
         :activeTab="activeTab" />
 </template>
 
 <script setup lang="ts">
-import Container from '@/components/Container.component.vue';
+import Container from '@/components/shared/Container.component.vue';
 import Home from '@/components/Home.component.vue';
 import Profile from '@/components/Profile.component.vue';
 import {
@@ -19,7 +20,7 @@ import Konjugation from '@/components/KonjugationAssignment.component.vue';
 import Search from '@/components/Search.component.vue';
 import Category from '@/components/Category.component.vue';
 import FlashCardComponent from '@/components/FlashCard.component.vue';
-import { useBackgroundColor, hexToRgbA } from '@/composable/useBackgroundColor';
+import { useBackgroundColor } from '@/composable/useBackgroundColor';
 //
 const props = defineProps({
     page: String,

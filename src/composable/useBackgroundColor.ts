@@ -1,18 +1,5 @@
 import { ref, Ref } from 'vue';
 
-const colors = {
-    flashCard: '#96C5CF',
-    home: '#D9D9D9',
-    search: '#D9D9D9',
-    word: '#bae6db',
-    profile: '#F4B9BA',
-    addNewWord: '#F6E4DA',
-    random: '#C2DDD6',
-    default: '#D9D9D9',
-    dictionary: '#96C5CF',
-    category: '#81A1DE',
-} as const;
-
 /* eslint-disable */
 function hexToRgbA(hex: string, opacity: number = 0.5) {
     let c: any;
@@ -27,10 +14,31 @@ function hexToRgbA(hex: string, opacity: number = 0.5) {
     throw new Error('bad request');
 }
 
+const colors = {
+    flashCard: { backgroundColor: hexToRgbA('#96C5CF', 0.7) },
+    home: {
+        'background': 'linear-gradient(90deg, rgba(238,174,202,1) 0%, rgba(146,201,200,0.7) 65%, rgba(148,187,233,1) 100%)',
+    },
+    search: { backgroundColor: hexToRgbA('#D9D9D9', 0.7) },
+    word: { backgroundColor: hexToRgbA('#bae6db', 0.7) },
+    profile: {
+        'background': 'linear-gradient(16deg, rgba(146,201,200,0.7) 0%, rgba(238,174,202,1) 65%, rgba(148,187,233,1) 100%)',
+    },
+    addNewWord: {
+        background: 'radial-gradient(circle, rgba(238,174,202,1) 26%, rgba(148,187,233,1) 100%)'
+    },
+    random: { backgroundColor: hexToRgbA('#C2DDD6', 0.7) },
+    default: { backgroundColor: hexToRgbA('#D9D9D9', 0.7) },
+    dictionary: { backgroundColor: hexToRgbA('#96C5CF', 0.7) },
+    category: { backgroundColor: hexToRgbA('#81A1DE', 0.3) },
+} as const;
+
 function useBackgroundColor(
     page?: string,
-): Ref<string> {
-    let color = '#9ab0b1';
+): Ref<Record<string, any>> {
+    let color: Record<string, any> = {
+        backgroundColor: '#9ab0b1'
+    };
     color = (() => {
         switch (page) {
             case 'dictionary': return colors.dictionary;
