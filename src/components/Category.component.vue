@@ -1,5 +1,5 @@
 <template>
-    <div class="grid m-2">
+    <div class="grid m-2 animation-x">
         <div class="grid justify-center w-full">
             <div v-if="isLoading">
                 <SpinnerComponent />
@@ -44,7 +44,7 @@
 import router from '@/router';
 import useStore from '@/store';
 import { ref, onMounted } from 'vue';
-import SpinnerComponent from './Spinner.component.vue';
+import SpinnerComponent from './shared/Spinner.component.vue';
 
 const store = useStore();
 console.log(store.count);

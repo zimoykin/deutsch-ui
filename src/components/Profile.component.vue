@@ -2,7 +2,7 @@
     <div v-if="isLoading">
         <SpinnerComponent />
     </div>
-    <div v-else class="grid">
+    <div v-else class="grid animation-x">
         <div class='grid justify-center items-center text-center w-full m-2'>
             <div class="grid justify-center items-center text-center">
                 <img class="rounded-full border-solid border-black border-4 max-xl:" :src="image" alt="avatar" />
@@ -45,7 +45,7 @@
 import useStore from '@/store';
 import { ref } from 'vue';
 import image from '@/assets/img/wolf.png';
-import SpinnerComponent from './Spinner.component.vue';
+import SpinnerComponent from './shared/Spinner.component.vue';
 
 const environment = ref();
 const isLoading = ref();

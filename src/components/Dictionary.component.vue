@@ -1,5 +1,5 @@
 <template>
-    <div class="inline-block">
+    <div class="inline-block animation-x">
         <div class="flex" v-for="item in items" :key="item[0]">
             <div v-for="sub in item" :key="sub">
                 <p @click="isLoading ? () => { } : pickedLetter = sub"
@@ -18,7 +18,7 @@
 import router from '@/router';
 import { ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import SpinnerComponent from './Spinner.component.vue';
+import SpinnerComponent from './shared/Spinner.component.vue';
 
 const alpabet = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜß'];
 const page = ref(0);

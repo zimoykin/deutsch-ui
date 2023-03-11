@@ -1,5 +1,5 @@
 <template>
-    <div class="grid my-2">
+    <div class="grid my-2 animation-x">
         <div class="flex items-center justify-center mx-1 bg-red-400 bg-opacity-30 rounded-md py-2">
             <div class="mr-1">
                 <label for="artikel" class="rounded-md grid items-center justify-center">
@@ -72,11 +72,13 @@
             <p>SAVE</p>
         </div>
     </div>
-    <div @click="showKonjugation = !showKonjugation">
-        <p>show konjugation</p>
-    </div>
-    <div @click="showExamples = !showExamples">
-        <p>show examples</p>
+    <div class="grid w-22 justify-center items-center">
+        <div class="cursor-pointe bg-yellow-700 text-white p-2 rounded shadow mb-2" @click="showKonjugation = !showKonjugation">
+            <p>show konjugation</p>
+        </div>
+        <div class="cursor-pointe bg-yellow-700 text-white p-2 rounded shadow" @click="showExamples = !showExamples">
+            <p>show examples</p>
+        </div>
     </div>
     <DialogModal :visible="showKonjugation" :on-close="onCloseKonjugationWindow" :component="AddKonjugation"
         :through-props="konjugation" />
@@ -87,9 +89,9 @@
 <script setup lang="ts">
 import useStore from '@/store';
 import artikel from '@/types/artikel';
-import DialogModal from '@/components/DialogModal.component.vue';
-import AddKonjugation from '@/components/Konjugation.component.vue';
-import AddExamples from '@/components/Examples.component.vue';
+import DialogModal from '@/components/modal/DialogModal.component.vue';
+import AddKonjugation from '@/components/modal/Konjugation.component.vue';
+import AddExamples from '@/components/modal/Examples.component.vue';
 import { ref } from 'vue';
 import { IKonjugation } from '@/types/konjugation.interface';
 

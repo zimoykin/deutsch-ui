@@ -1,5 +1,5 @@
 <template>
-    <div v-if="props.visible" class="absolute top-0 left-0 bg-slate-700 bg-opacity-40 w-full h-full">
+    <div v-if="props.visible" class="absolute top-0 left-0 bg-slate-700 bg-opacity-40 w-full h-full animation-x">
         <div
             class="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center m-1 bg-white rounded-md shadow-md w-44 lg:w-96 md:w-80 sm:w-50 h-3/5">
             <div class="relative w-full items-end justify-end" @click="onClose()">
@@ -24,3 +24,19 @@ const props = defineProps({
 const store = useStore();
 
 </script>
+
+<style scoped>
+@keyframes fadeIn {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+.animation-x {
+    animation-name: fadeIn;
+    animation-duration: 0.5s
+}</style>

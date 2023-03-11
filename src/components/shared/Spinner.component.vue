@@ -1,5 +1,5 @@
 <template>
-    <div class="loadingio-spinner-cube-pg9qvv54uuo rounded-3xl m-2">
+    <div class="loadingio-spinner-cube-pg9qvv54uuo rounded-3xl m-2 animation-x">
         <div class="ldio-gfkkr2e35g">
             <div></div>
             <div></div>
