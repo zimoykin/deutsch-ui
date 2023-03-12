@@ -2,12 +2,12 @@
     <div class="grid m-2">
         <div class="flex justify-center m-1">
             <div :style="{ width: width66, height }"
-                class="animation-x rounded-lg shadow-xl items-center justify-center flex bg-[#96C5CF] mr-2 cursor-pointer"
+                class="animation-x rounded-lg shadow-xl items-center justify-center flex bg-[#96C5CF] mr-2 cursor-pointer bg-opacity-50"
                 @click="click.flashCards()" @keydown="click.flashCards()">
                 <p> FLASH CARDS</p>
             </div>
             <div :style="{ width: width33, height }"
-                class="animation-3x rounded-lg shadow-xl items-center justify-center flex bg-[#F4B9BA] cursor-pointer"
+                class="animation-3x rounded-lg shadow-xl items-center justify-center flex bg-[#F4B9BA] cursor-pointer bg-opacity-50"
                 @click="click.profile()" @keydown="click.profile()">
                 <p> PROFILE</p>
             </div>
@@ -15,12 +15,12 @@
 
         <div class="flex justify-center m-1">
             <div :style="{ width: width33, height }"
-                class="animation-3x rounded-lg shadow-xl items-center justify-center flex bg-[#F6E4DA] mr-2 cursor-pointer"
+                class="animation-3x rounded-lg shadow-xl items-center justify-center flex bg-[#F6E4DA] mr-2 cursor-pointer bg-opacity-50"
                 @click="click.addNew()" @keydown="click.addNew()">
                 <p> ADD NEW</p>
             </div>
             <div :style="{ width: width66, height }"
-                class="animation-2x rounded-lg shadow-xl items-center justify-center flex bg-[#C2DDD6] cursor-pointer"
+                class="animation-2x rounded-lg shadow-xl items-center justify-center flex bg-[#C2DDD6] cursor-pointer bg-opacity-50"
                 @keydown="click.random()" @click="click.random()">
                 <p> RANDOM</p>
             </div>
@@ -28,12 +28,12 @@
 
         <div class="flex justify-center m-1">
             <div :style="{ width: width66, height }"
-                class="animation-3x rounded-lg shadow-xl items-center justify-center flex bg-[#F4B9BA] mr-2 cursor-pointer"
+                class="animation-3x rounded-lg shadow-xl items-center justify-center flex bg-[#F4B9BA] mr-2 cursor-pointer bg-opacity-50"
                 @keydown="click.dictionary()" @click="click.dictionary()">
                 <p> DICTIONARY</p>
             </div>
             <div :style="{ width: width33, height }"
-                class="animation-3x rounded-lg shadow-xl items-center justify-center flex bg-[#96C5CF] cursor-pointer"
+                class="animation-3x rounded-lg shadow-xl items-center justify-center flex bg-[#96C5CF] cursor-pointer bg-opacity-50"
                 @keydown="click.konjugation()" @click="click.konjugation()">
                 <p>KONJUGATION</p>
             </div>

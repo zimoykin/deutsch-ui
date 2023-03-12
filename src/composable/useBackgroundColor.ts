@@ -15,22 +15,36 @@ function hexToRgbA(hex: string, opacity: number = 0.5) {
 }
 
 const colors = {
-    flashCard: { backgroundColor: hexToRgbA('#96C5CF', 0.7) },
+    flashCard: {
+        'background': 'linear-gradient(16deg, rgba(146,201,200,0.7) 0%, rgba(238,174,202,1) 65%, rgba(148,187,233,1) 100%)',
+    },
     home: {
         'background': 'linear-gradient(90deg, rgba(238,174,202,1) 0%, rgba(146,201,200,0.7) 65%, rgba(148,187,233,1) 100%)',
     },
-    search: { backgroundColor: hexToRgbA('#D9D9D9', 0.7) },
-    word: { backgroundColor: hexToRgbA('#bae6db', 0.7) },
+    search: {
+        'background': 'linear-gradient(16deg, rgba(146,201,200,0.7) 0%, rgba(238,174,202,1) 65%, rgba(148,187,233,1) 100%)',
+    },
+    word: {
+        'background': 'linear-gradient(16deg, rgba(146,201,200,0.7) 0%, rgba(238,174,202,1) 65%, rgba(148,187,233,1) 100%)',
+    },
     profile: {
         'background': 'linear-gradient(16deg, rgba(146,201,200,0.7) 0%, rgba(238,174,202,1) 65%, rgba(148,187,233,1) 100%)',
     },
     addNewWord: {
         background: 'radial-gradient(circle, rgba(238,174,202,1) 26%, rgba(148,187,233,1) 100%)'
     },
-    random: { backgroundColor: hexToRgbA('#C2DDD6', 0.7) },
-    default: { backgroundColor: hexToRgbA('#D9D9D9', 0.7) },
-    dictionary: { backgroundColor: hexToRgbA('#96C5CF', 0.7) },
-    category: { backgroundColor: hexToRgbA('#81A1DE', 0.3) },
+    random: {
+        'background': 'linear-gradient(16deg, rgba(146,201,200,0.7) 0%, rgba(238,174,202,1) 65%, rgba(148,187,233,1) 100%)',
+    },
+    default: {
+        'background': 'linear-gradient(16deg, rgba(146,201,200,0.7) 0%, rgba(238,174,202,1) 65%, rgba(148,187,233,1) 100%)',
+    },
+    dictionary: {
+        'background': 'linear-gradient(180deg, rgba(238,174,202,0.7) 0%, rgba(146,201,200,0.6) 65%, rgba(148,187,233,0.7) 100%)',
+    },
+    category: {
+        'background': 'linear-gradient(16deg, rgba(146,201,200,0.7) 0%, rgba(238,174,202,1) 65%, rgba(148,187,233,1) 100%)',
+    },
 } as const;
 
 function useBackgroundColor(
