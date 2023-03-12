@@ -1,5 +1,5 @@
 <template>
-    <div class="inline-block animation-x">
+    <div class="inline-block animation-x" v-if="showAlphabet">
         <div class="flex" v-for="item in items" :key="item[0]">
             <div v-for="sub in item" :key="sub">
                 <p @click="isLoading ? () => { } : pickedLetter = sub"
@@ -8,23 +8,32 @@
             </div>
         </div>
     </div>
+    <div v-for="item in words" :key="item.ger">
+        <WordPreviewComponent :word="item" />
+    </div>
     <div v-if="isLoading">
         <SpinnerComponent />
     </div>
-
 </template>
 
 <script setup lang="ts">
 import router from '@/router';
+import artikel from '@/types/artikel';
 import { ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import SpinnerComponent from './shared/Spinner.component.vue';
+import WordPreviewComponent from './WordPreview.component.vue';
 
 const alpabet = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜß'];
 const page = ref(0);
 const limit = ref(10);
 const pickedLetter = ref<string>();
 const isLoading = ref(false);
+const showAlphabet = ref(true);
+const words = ref<{
+    artikel?: string,
+    ger: string, eng: string, rus: string;
+}[]>([]);
 
 const items = computed(() => {
     const numberInGroup = 15;
@@ -51,8 +60,17 @@ if (!route.query.page) {
 
 watch(pickedLetter, () => {
     isLoading.value = true;
+    showAlphabet.value = false;
+    words.value = [];
     setTimeout(() => {
         isLoading.value = false;
+        showAlphabet.value = true;
+        words.value = [
+            { ger: 'Spielen', eng: 'Play', rus: 'играть' },
+            {
+                artikel: artikel.der, ger: 'Spigel', eng: 'Mirror', rus: 'Зеркало',
+            },
+        ];
     }, 3000);
 });
 
