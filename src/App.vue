@@ -1,8 +1,8 @@
 <template>
-  <LoginComponent v-if="!store.isLogined" />
-  <div v-else>
-    <Header />
-    <div :style="{ height: '90vh' }" class="w-full h-full flex items-center justify-center">
+  <div>
+    <Header v-if="store.isLogined" />
+    <LoginComponent v-if="!store.isLogined" />
+    <div v-else :style="{ height: '90vh' }" class="w-full h-full flex items-center justify-center">
       <div :style="store.isMobileView ? { width: '100%', } : { maxWidth: '1080px', width: '75%', }"
         class="flex h-full rounded-md m-1 justify-center bg-slate-200">
         <router-view />

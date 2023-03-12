@@ -1,16 +1,18 @@
 <template>
     <div>
-        <p> KONJUGATION </p>
-        <div class="grid text-center">
-            <input placeholder="ich" class="p-2 text-center" v-model="ich" />
-            <input placeholder="du" class="p-2 text-center" v-model="du" />
-            <input placeholder="er-sie-es" class="p-2 text-center" v-model="erSieEs" />
-            <input placeholder="wir" class="p-2 text-center" v-model="wir" />
-            <input placeholder="ihr" class="p-2 text-center" v-model="ihr" />
-            <input placeholder="sie" class="p-2 text-center" v-model="sie" />
+        <div class="m-2">
+            <p class="text-left"> KONJUGATION: </p>
+            <div class="grid text-center mb-1">
+                <input placeholder="ich" class="p-2 text-center mx-4 my-1 rounded shadow" v-model="ich" />
+                <input placeholder="du" class="p-2 text-center mx-4 my-1 rounded shadow" v-model="du" />
+                <input placeholder="er-sie-es" class="p-2 text-center mx-4 my-1 rounded shadow" v-model="erSieEs" />
+                <input placeholder="wir" class="p-2 text-center mx-4 my-1 rounded shadow" v-model="wir" />
+                <input placeholder="ihr" class="p-2 text-center mx-4 my-1 rounded shadow" v-model="ihr" />
+                <input placeholder="sie" class="p-2 text-center mx-4 my-1 rounded shadow" v-model="sie" />
+            </div>
         </div>
 
-        <div @click="save()" class="bg-green-300 p-2">
+        <div @click="save()" class="absolute bottom-0 bg-green-300 bg-opacity-50 rounded shadow p-2 w-full hover:bg-green-400">
             <p> SAVE </p>
         </div>
     </div>

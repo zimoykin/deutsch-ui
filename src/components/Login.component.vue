@@ -1,25 +1,27 @@
 <template>
-    <div class="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center m-1 animation-x">
-        <div v-if="isLoading">
-            <SpinnerComponent />
-        </div>
-        <div v-else>
-            <h1 class="bg-red-900 text-white font-bold p-2 mb-4 rounded-md shadow-2xl hover:bg-transparent">Herzlich
-                willkommen!
-            </h1>
-            <div class="grid ease-in-out">
-                <label for="email">
-                    <input id="email" class="p-4 rounded-md shadow-2xl my-1" v-bind="email" placeholder="email"
-                        type="email" />
-                </label>
-                <label for="password">
-                    <input id='password' class="p-4 rounded-md shadow-2xl my-1" v-bind="password" placeholder="password"
-                        type="password" />
-                </label>
+    <div class="w-0 h-1">
+        <div class="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center m-1 animation-x">
+            <div v-if="isLoading">
+                <SpinnerComponent />
             </div>
-            <div class="bg-green-200 mt-4 p-4 cursor-pointer rounded-md shadow-2xl hover:bg-slate-700 hover:text-white"
-                @click="login">
-                <p> login </p>
+            <div v-else>
+                <h1 class="bg-red-400 text-white font-bold p-2 mb-4 rounded-md shadow-2xl hover:bg-transparent hover:text-blue-200">Herzlich
+                    willkommen!
+                </h1>
+                <div class="grid ease-in-out">
+                    <label for="email">
+                        <input id="email" class="p-4 rounded-md shadow-2xl my-1" v-bind="email" placeholder="email"
+                            type="email" />
+                    </label>
+                    <label for="password">
+                        <input id='password' class="p-4 rounded-md shadow-2xl my-1" v-bind="password" placeholder="password"
+                            type="password" />
+                    </label>
+                </div>
+                <div class="bg-green-300 mt-4 p-4 cursor-pointer rounded-md shadow-2xl hover:bg-slate-300 bg-opacity-40 hover:text-white"
+                    @click="login">
+                    <p> login </p>
+                </div>
             </div>
         </div>
     </div>

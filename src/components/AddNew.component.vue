@@ -73,10 +73,10 @@
         </div>
     </div>
     <div class="grid w-22 justify-center items-center">
-        <div class="cursor-pointe bg-yellow-700 text-white p-2 rounded shadow mb-2" @click="showKonjugation = !showKonjugation">
+        <div class="cursor-pointe bg-slate-400 text-white p-2 rounded shadow mb-2" @click="showKonjugation = !showKonjugation">
             <p>show konjugation</p>
         </div>
-        <div class="cursor-pointe bg-yellow-700 text-white p-2 rounded shadow" @click="showExamples = !showExamples">
+        <div class="cursor-pointe bg-slate-500 text-white p-2 rounded shadow" @click="showExamples = !showExamples">
             <p>show examples</p>
         </div>
     </div>
