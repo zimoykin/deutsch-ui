@@ -1,0 +1,24 @@
+.animation-x {
+    animation-name: fadeIn;
+    animation-duration: 0.8s
+}
+
+.animation-2x {
+    animation-name: fadeIn;
+    animation-duration: 0.4s
+}
+
+.animation-3x {
+    animation-name: fadeIn;
+    animation-duration: 0.2s
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
