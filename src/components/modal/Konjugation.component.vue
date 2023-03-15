@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="m-2">
+        <div class="m-1">
             <p class="text-left"> KONJUGATION: </p>
             <div class="grid text-center mb-1">
                 <input placeholder="ich" class="p-2 text-center mx-4 my-1 rounded shadow" v-model="ich" />
@@ -12,8 +12,11 @@
             </div>
         </div>
 
-        <div @click="save()" class="absolute bottom-0 bg-green-300 bg-opacity-50 rounded shadow p-2 w-full hover:bg-green-400">
-            <p> SAVE </p>
+        <div class="m-2 flex justify-center">
+            <div @click="save()"
+                class="absolute bottom-2 bg-green-300 bg-opacity-40 rounded shadow p-2 w-11/12 hover:bg-green-400">
+                <p> SAVE </p>
+            </div>
         </div>
     </div>
 </template>

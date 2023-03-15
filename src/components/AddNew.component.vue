@@ -3,9 +3,9 @@
         <div class="animation-3x flex items-center justify-center mx-1 bg-red-400 bg-opacity-30 rounded-md py-2 px-1">
             <div class="mr-1">
                 <label for="artikel" class="rounded-md grid items-center justify-center">
-                    <p class="text-left">ARTIKEL</p>
-                    <select :class="dynamicStyles" id="artikel" type="text" v-model="artikelSelected">
-                        <option v-for="(key) in Object.keys(artikel)" :key="key" :value="key">{{ key.toUpperCase() }}
+                    <p class="text-left">TYPE</p>
+                    <select :class="dynamicStyles" id="wordType" type="text" v-model="wordType">
+                        <option v-for="(key) in Object.keys(WORD_TYPE)" :key="key" :value="key">{{ key.toUpperCase() }}
                         </option>
                     </select>
                 </label>
@@ -15,6 +15,41 @@
                     <p class="text-left">GERMAN</p>
                     <input :class="dynamicStyles" id="germanWord" type="text" v-model="germanWord">
                 </label>
+            </div>
+        </div>
+
+        <div class="animation-3x flex items-center justify-center mx-1 bg-gray-500 bg-opacity-30 rounded-md py-2 px-1">
+
+            <div class="h-full" v-if="wordType === WORD_TYPE.noun || wordType === WORD_TYPE.verb">
+                <div class="" v-if="wordType === WORD_TYPE.noun">
+                    <label for="artikel" class="rounded-md grid items-center justify-center">
+                        <p class="text-left">ARTIKEL</p>
+                        <select :class="dynamicStyles" id="artikel" type="text" v-model="artikelSelected">
+                            <option v-for="(key) in Object.keys(artikel)" :key="key" :value="key">{{ key.toUpperCase() }}
+                            </option>
+                        </select>
+                    </label>
+                </div>
+                <div class="ml-1" v-if="wordType === WORD_TYPE.verb">
+                    <label for="partizip2" class="rounded-md grid items-center justify-center">
+                        <p class="text-left">PARTIZIP II</p>
+                        <input :class="dynamicStyles" id="partizip2" type="text" v-model="partizip2">
+                    </label>
+                </div>
+            </div>
+
+            <div class="ml-2">
+                <div class="grid w-22 justify-center items-center">
+                    <div v-if="wordType === WORD_TYPE.verb" :class="dynamicStyles"
+                        class="cursor-pointe bg-slate-400 text-white p-2 rounded shadow mb-2"
+                        @click="showKonjugation = !showKonjugation">
+                        <p>konjugation</p>
+                    </div>
+                    <div class="cursor-pointe bg-slate-500 text-white p-2 rounded shadow"
+                        @click="showExamples = !showExamples">
+                        <p>examples</p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="animation-2x flex items-center justify-center m-2 bg-slate-400 bg-opacity-30 rounded-md py-2 px-1">
@@ -72,14 +107,7 @@
             <p>SAVE</p>
         </div>
     </div>
-    <div class="grid w-22 justify-center items-center">
-        <div class="cursor-pointe bg-slate-400 text-white p-2 rounded shadow mb-2" @click="showKonjugation = !showKonjugation">
-            <p>show konjugation</p>
-        </div>
-        <div class="cursor-pointe bg-slate-500 text-white p-2 rounded shadow" @click="showExamples = !showExamples">
-            <p>show examples</p>
-        </div>
-    </div>
+
     <DialogModal :visible="showKonjugation" :on-close="onCloseKonjugationWindow" :component="AddKonjugation"
         :through-props="konjugation" />
     <DialogModal :visible="showExamples" :on-close="onCloseExamplesWindow" :component="AddExamples"
@@ -89,6 +117,7 @@
 <script setup lang="ts">
 import useStore from '@/store';
 import artikel from '@/types/artikel';
+import { WORD_TYPE } from '@/types/word-type';
 import DialogModal from '@/components/modal/DialogModal.component.vue';
 import AddKonjugation from '@/components/modal/Konjugation.component.vue';
 import AddExamples from '@/components/modal/Examples.component.vue';
@@ -97,6 +126,8 @@ import { IKonjugation } from '@/types/konjugation.interface';
 
 const store = useStore();
 const artikelSelected = ref();
+const wordType = ref();
+const partizip2 = ref();
 const germanWord = ref();
 const englishWord = ref();
 const russianWord = ref();

@@ -10,8 +10,11 @@
                 </label>
             </div>
         </div>
-        <div @click="save()" class="absolute bottom-0 bg-green-300 bg-opacity-50 rounded shadow p-2 w-full cursor-pointer hover:bg-green-400">
-            <p> SAVE </p>
+        <div class="m-2 flex justify-center">
+            <div @click="save()"
+                class="absolute bottom-2 bg-green-300 bg-opacity-40 rounded shadow p-2 w-11/12 hover:bg-green-400">
+                <p> SAVE </p>
+            </div>
         </div>
     </div>
 </template>

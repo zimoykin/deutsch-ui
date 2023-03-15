@@ -1,51 +1,44 @@
-// /* eslint-disable */
-// import axios, { AxiosInstance } from 'axios';
-// /* eslint-disable */
-// import jsonApi from './jsonApi';
+/* eslint-disable */
+import useStore from '@/store';
+import axios, { AxiosInstance } from 'axios';
 
-// let instance: AxiosInstance;
+let instance: AxiosInstance;
 
-// export function init(): AxiosInstance {
-//     if (instance) {
-//         return instance;
-//     }
+export function init(): AxiosInstance {
+    if (instance) {
+        return instance;
+    }
 
-//     const axiosApiInstance = axios.create();
+    const store = useStore();
 
-//     instance = axiosApiInstance;
+    const axiosApiInstance = axios.create();
 
-//     const refreshAccessToken = async (): Promise<{ accessToken: string; refreshToken: string; }> => {
-//         const refreshToken = localStorage.getItem('refreshToken');
-//         if (refreshToken != null) {
-//             const [data] = jsonApi<{ accessToken: string; refreshToken: string; }>({
-//                 method: 'POST', backend: 'auth-svc', body: { refreshToken }, path: 'auth/refresh',
-//             }).toPromise();
-//             return data.then((data) => ({
-//                 accessToken: data.accessToken,
-//                 refreshToken: data.refreshToken,
-//             })).catch((err) => {
-//                 throw new Error('refresh token not found');
-//             });
-//         }
-//         throw new Error('refresh token not found');
-//     };
+    instance = axiosApiInstance;
 
-//     /** eslint-disabled */
-//     instance.interceptors.response.use((resp) => {
-//         console.log(resp);
-//         return resp;
-//     }, async (error) => {
-//         const originalRequest = error.config;
-//         if (error.response.status === 403 && !originalRequest._retry) {
-//             originalRequest._retry = true;
-//             const { accessToken, refreshToken } = await refreshAccessToken();
-//             originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-//             localStorage.setItem('accessToken', accessToken);
-//             localStorage.setItem('refreshToken', refreshToken);
-//             return axiosApiInstance(originalRequest);
-//         }
-//         return Promise.reject(error);
-//     });
+    const refreshAccessToken = async (): Promise<{ accessToken: string; refreshToken: string; }> => {
+        const refreshToken = localStorage.getItem('refreshToken');
+        if (refreshToken != null) {
+            const { data } = await axios.post<{ accessToken: string; refreshToken: string; }>(`${store.backend_auth_stage}/auth/refresh`, { refreshToken });
+            return data;
+        }
+        throw new Error('refresh token not found');
+    };
 
-//     return axiosApiInstance;
-// }
+    instance.interceptors.response.use((resp) => {
+        console.log(resp);
+        return resp;
+    }, async (error) => {
+        const originalRequest = error.config;
+        if (error.response.status === 403 && !originalRequest._retry) {
+            originalRequest._retry = true;
+            const { accessToken, refreshToken } = await refreshAccessToken();
+            originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+            localStorage.setItem('accessToken', accessToken);
+            localStorage.setItem('refreshToken', refreshToken);
+            return axiosApiInstance(originalRequest);
+        }
+        return Promise.reject(error);
+    });
+
+    return axiosApiInstance;
+}
