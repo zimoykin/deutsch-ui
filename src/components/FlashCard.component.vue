@@ -36,19 +36,19 @@
 
             <div v-if="typeTask === 'pick'" class="my-6 grid">
                 <div class="flex my-2">
-                    <div class="w-3/5 uppercase bg-white h-28 mr-2 rounded-md shadow-md flex justify-center items-center cursor-pointer"
+                    <div class="w-3/5 uppercase bg-white h-28 mr-2 rounded shadow flex justify-center items-center cursor-pointer"
                         @click="click.tryAnswer(options.option1)">
                         <p class="text-center">{{ options.option1 }}</p>
                     </div>
 
-                    <div class="w-2/5 uppercase bg-white h-28 rounded-md shadow-md flex justify-center items-center cursor-pointer"
+                    <div class="w-2/5 uppercase bg-white h-28 rounded shadow flex justify-center items-center cursor-pointer"
                         @click="click.tryAnswer(options.option2)">
                         <p class="text-center">{{ options.option2 }}</p>
                     </div>
                 </div>
 
                 <div class="flex">
-                    <div class="w-2/5 uppercase bg-white h-28 rounded-md shadow-md flex justify-center items-center cursor-pointer"
+                    <div class="w-2/5 uppercase bg-white h-28 rounded shadow flex justify-center items-center cursor-pointer"
                         @click="click.tryAnswer(options.option3)">
                         <p class="text-center">{{ options.option3 }}</p>
                     </div>
@@ -73,9 +73,12 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import useStore from '@/store/index';
+import network from '@/utils/network';
+import { useRoute } from 'vue-router';
 import SpinnerComponent from './shared/Spinner.component.vue';
 
 const store = useStore();
+const route = useRoute();
 const isLoading = ref(false);
 const progress = ref(25);
 const width = ref('0px');
@@ -101,10 +104,58 @@ const getHeight = () => {
     height.value = `${size}px`;
 };
 
+const nextTask = () => {
+    const current: any = store.assignment[0];
+    assignmentTask.value = current.task;
+    const [option1, option2, option3, option4] = current.options;
+
+    options.option1 = option1;
+    options.option2 = option2;
+    options.option3 = option3;
+    options.option4 = option4;
+};
+
 onMounted(() => {
     getWidth();
     getHeight();
+
+    isLoading.value = true;
+    let assignmentPath = 'assignment';
+    const { category } = route.query;
+    if (category) {
+        assignmentPath += `_${category}`;
+    }
+
+    const assignmentStored = localStorage.getItem(assignmentPath);
+    if (assignmentStored) {
+        store.assignment = JSON.parse(assignmentStored);
+        isLoading.value = false;
+        nextTask();
+    } else {
+        let path = 'flash-cards';
+        if (category) {
+            path += `?topic=${category}`;
+        }
+
+        network({
+            method: 'GET',
+            path,
+            svc: 'svc',
+            auth: true,
+        })
+            .then((data) => {
+                localStorage.setItem(assignmentPath, JSON.stringify(data));
+                store.assignment = data as never;
+                nextTask();
+            })
+            .catch((err) => {
+                store.error = { message: err.message, topic: 'network error' };
+            }).finally(() => {
+                isLoading.value = false;
+            });
+    }
 });
+
 window.addEventListener('resize', () => {
     getWidth();
     getHeight();
@@ -118,4 +169,5 @@ const click = {
         console.log('click');
     },
 };
+
 </script>

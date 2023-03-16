@@ -43,7 +43,6 @@ const password = ref<string>();
 
 const login = async () => {
     isLoading.value = true;
-    debugger;
     const response = await network<{ accessToken: string; refreshToken: string; }>({
         path: 'auth/login',
         method: 'POST',
