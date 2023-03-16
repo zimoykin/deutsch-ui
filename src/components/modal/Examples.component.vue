@@ -35,7 +35,6 @@ onMounted(() => {
 });
 
 const changed = (value: string, ind: number) => {
-    debugger;
     console.log(value);
     examples.value[ind] = value;
 };

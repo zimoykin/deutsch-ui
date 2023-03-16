@@ -12,17 +12,18 @@ export default defineStore('store', {
         backend_dev: process.env.VUE_APP_DEV,
         backend_stage: process.env.VUE_APP_STAGE,
         env: process.env.VUE_APP_ENV,
+        error: undefined as { message: string, topic?: string; } | undefined,
+        assignment: [],
     }),
     actions: {
-        // isMobile() {
-        //     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        //         return true;
-        //     }
-        //     return false;
-        // },
         logout() {
             localStorage.clear();
             this.isLogined = false;
         },
+    },
+    getters: {
+        // getError() {
+        //     return this.error.;
+        // }
     },
 });
