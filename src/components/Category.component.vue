@@ -93,9 +93,9 @@ network<string[]>({ method: 'GET', svc: 'svc', path: 'topic' })
     .then((data) => {
         prepareCategories(data);
     }).catch((err: Error) => {
-        store.error = {
+        store.toast = {
             message: err.message,
-            topic: 'network error',
+            topic: 'networkError',
         };
     }).finally(() => {
         isLoading.value = false;

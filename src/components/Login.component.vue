@@ -5,11 +5,16 @@
                 <SpinnerComponent />
             </div>
             <div v-else>
-                <h1
+                <div @click="onHerzlichWillkommenClick()"
                     class="bg-red-400 text-white font-bold p-2 mb-4 rounded-md shadow-2xl hover:bg-transparent hover:text-blue-200">
-                    Herzlich
-                    willkommen!
-                </h1>
+                    <h1>
+                        Herzlich
+                        willkommen!
+                    </h1>
+                    <div v-if="store.env === 'stage' || store.env === 'dev'">
+                        {{ "mode: " + store.env }}
+                    </div>
+                </div>
                 <div class="grid ease-in-out">
                     <label for="email">
                         <input id="email" class="p-4 rounded-md shadow-2xl my-1" v-model="email" placeholder="email"
@@ -41,6 +46,8 @@ const isLoading = ref(false);
 const email = ref<string>();
 const password = ref<string>();
 
+const envSwitcherCount = ref(0);
+
 const login = async () => {
     isLoading.value = true;
     const response = await network<{ accessToken: string; refreshToken: string; }>({
@@ -52,11 +59,29 @@ const login = async () => {
         svc: 'auth',
     }).finally(() => {
         isLoading.value = false;
+    }).catch((err: Error) => {
+        store.toast = {
+            message: `Oomph!' ${err.message}`,
+            topic: 'networkError',
+        };
     });
+
     if (response && response.accessToken && response.refreshToken) {
         localStorage.setItem('accessToken', response.accessToken);
-        localStorage.setItem('accessToken', response.refreshToken);
+        localStorage.setItem('refreshToken', response.refreshToken);
         store.isLogined = true;
+        store.toast = {
+            message: 'Awesome! It is nice to have you here again!',
+            topic: 'success',
+        };
+    }
+};
+
+const onHerzlichWillkommenClick = () => {
+    envSwitcherCount.value += 1;
+    if (envSwitcherCount.value === 10) {
+        envSwitcherCount.value = 0;
+        store.switchEnv();
     }
 };
 

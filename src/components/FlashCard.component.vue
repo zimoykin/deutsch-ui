@@ -149,7 +149,7 @@ onMounted(() => {
                 nextTask();
             })
             .catch((err) => {
-                store.error = { message: err.message, topic: 'network error' };
+                store.toast = { message: err.message, topic: 'networkError' };
             }).finally(() => {
                 isLoading.value = false;
             });

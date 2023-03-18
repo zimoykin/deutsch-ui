@@ -8,6 +8,7 @@
         <router-view />
       </div>
     </div>
+    <Toast v-if="errorMessages.length" :messages="errorMessages" />
   </div>
 </template>
 
@@ -15,8 +16,32 @@
 import Header from '@/components/shared/Header.component.vue';
 import LoginComponent from '@/components/Login.component.vue';
 import useStore from '@/store';
+import { ref, watch } from 'vue';
+import Toast from './components/shared/Toast.component.vue';
+import { MessageType } from './types/message-types.type';
+import { speaker } from './utils/speaker-bot';
 
 const store = useStore();
+let timeoutToast: number;
+
+const errorMessages = ref<{ message: string; topic?: MessageType; speaker: string; }[]>([]);
+watch(() => store.toast, () => {
+    if (store.toast) {
+        if (errorMessages.value?.length > 5) {
+            errorMessages.value = errorMessages.value.slice(0, 4);
+        }
+        errorMessages?.value.push({ ...store.toast, speaker: speaker(store.toast.topic) });
+        clearTimeout(timeoutToast);
+        timeoutToast = setTimeout(() => {
+            errorMessages.value = [];
+        }, 5_000);
+    }
+});
+
+const toastClick = () => {
+    errorMessages.value = [];
+};
+
 window.addEventListener('resize', () => {
     store.isMobileView = window.innerHeight > window.innerWidth;
 }, { passive: true });
