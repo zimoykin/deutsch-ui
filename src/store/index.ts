@@ -1,3 +1,4 @@
+import { MessageType } from '@/types/message-types.type';
 import { defineStore } from 'pinia';
 
 export default defineStore('store', {
@@ -11,14 +12,25 @@ export default defineStore('store', {
         backend_prod: process.env.VUE_APP_PROD,
         backend_dev: process.env.VUE_APP_DEV,
         backend_stage: process.env.VUE_APP_STAGE,
-        env: process.env.VUE_APP_ENV,
-        error: undefined as { message: string, topic?: string; } | undefined,
+        env: process.env.VUE_APP_ENV || 'stage',
+        toast: undefined as { message: string, topic?: MessageType; } | undefined,
         assignment: [],
     }),
     actions: {
         logout() {
             localStorage.clear();
             this.isLogined = false;
+        },
+        switchEnv() {
+            debugger;
+            if (this.env === 'stage') {
+                this.env = 'prod';
+            } else if (this.env === 'prod') {
+                this.env = 'dev';
+            } else {
+                this.env = 'stage';
+            }
+            this.toast = { message: `env switched to ${this.env}`, topic: 'info' };
         },
     },
     getters: {

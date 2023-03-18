@@ -12,14 +12,15 @@
                 <p :style="{ fontFamily: 'Gothic A1', fontSize: 'medium', fontWeight: 'lighter' }"> {{ email }}</p>
             </div>
 
-            <div class="my-6" :style="{  }">
+            <div class="my-6" :style="{}">
                 <div class="flex justify-center items-center text-center my-4">
-                    <div
+                    <div @click="click.delete()"
                         class="w-3/5 bg-[#96C5CF] h-28 mr-4 rounded-md shadow-md flex justify-center items-center text-center bg-opacity-40">
                         {{ 'CHANGE PASSWORD' }}
                     </div>
 
-                    <div class="w-2/5 bg-[#F4B9BA] h-28 rounded-md shadow-md flex justify-center items-center text-center bg-opacity-40">
+                    <div @click="click.delete()"
+                        class="w-2/5 bg-[#F4B9BA] h-28 rounded-md shadow-md flex justify-center items-center text-center bg-opacity-40">
                         {{ 'DELETE ME' }}
                     </div>
                 </div>
@@ -27,7 +28,7 @@
                 <div class="flex">
                     <div @click="click.switchEnv()"
                         class="w-2/5 bg-[#F6E4DA] h-28 rounded-md shadow-md flex justify-center items-center text-center bg-opacity-40">
-                        {{ environment }}
+                        {{ store.env }}
                     </div>
 
                     <div @click="click.logout()"
@@ -47,7 +48,6 @@ import { ref } from 'vue';
 import image from '@/assets/img/wolf.png';
 import SpinnerComponent from './shared/Spinner.component.vue';
 
-const environment = ref();
 const isLoading = ref();
 const userName = ref();
 const email = ref();
@@ -55,10 +55,24 @@ const store = useStore();
 
 const click = {
     switchEnv() {
-        console.log('switch env');
+        store.switchEnv();
     },
     logout() {
         store.logout();
+        store.toast = {
+            message: 'catch you here the next time!',
+            topic: 'success',
+        };
+    },
+    delete() {
+        store.toast = {
+            message: 'I am so sorry!, but this feature is under construction right now!',
+        };
+    },
+    changePassword() {
+        store.toast = {
+            message: 'Oh no! This feature is not implemented yet, let`s be in touch!',
+        };
     },
 };
 </script>
