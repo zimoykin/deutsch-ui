@@ -22,7 +22,7 @@ import { MessageType } from './types/message-types.type';
 import { speaker } from './utils/speaker-bot';
 
 const store = useStore();
-let timeoutToast: number;
+// let timeoutToast: number;
 
 const errorMessages = ref<{ message: string; topic?: MessageType; speaker: string; }[]>([]);
 watch(() => store.toast, () => {
@@ -31,10 +31,11 @@ watch(() => store.toast, () => {
             errorMessages.value = errorMessages.value.slice(0, 4);
         }
         errorMessages?.value.push({ ...store.toast, speaker: speaker(store.toast.topic) });
-        clearTimeout(timeoutToast);
-        timeoutToast = setTimeout(() => {
-            errorMessages.value = [];
-        }, 5_000);
+        errorMessages.value.forEach((_, ind) => {
+            setTimeout(() => {
+                errorMessages.value = errorMessages.value.filter((a, index) => index !== ind);
+            }, 5_000);
+        });
     }
 });
 

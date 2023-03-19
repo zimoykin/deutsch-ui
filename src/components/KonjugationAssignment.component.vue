@@ -9,6 +9,6 @@ import useStore from '@/store';
 
 const store = useStore();
 store.toast = {
-    message: 'this page is not implemented, please try later!',
+    message: 'this page is not implemented, please try again later!',
 };
 </script>

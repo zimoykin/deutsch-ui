@@ -7,7 +7,7 @@ import useStore from '@/store';
 
 const store = useStore();
 store.toast = {
-    message: 'this page is not implemented',
+    message: 'I am sorry, this page is not implemented',
     topic: 'info',
 };
 
