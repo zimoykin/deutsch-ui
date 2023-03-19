@@ -22,10 +22,10 @@
                 </div>
             </div>
 
-            <div class="relative rounded-md bg-white shadow-md uppercase" :style="{ width: width, height: height }">
-                <div class="absolute w-full h-full flex justify-end p-2 cursor-pointer"
-                    :style="{ zIndex: 7, color: 'gray' }" @click="click.skip()" @keydown.enter="click.skip()">
-                    <p>skip</p>
+            <div class="relative rounded-md shadow-md uppercase"
+                :style="{ width: width, height: height, backgroundColor: backgroundColor }">
+                <div class="absolute w-full h-full flex justify-end p-2" :style="{ zIndex: 7, color: 'gray' }">
+                    <p class="cursor-pointer" @click="click.skip()" @keydown.enter="click.skip()">skip</p>
                 </div>
                 <div class="absolute flex w-full h-full justify-center items-center text-center" :style="{
                     zIndex: 6
@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-            <div v-if="typeTask === 'pick'" class="my-6 grid">
+            <div v-if="typeTask === 'pick' || typeTask === 'artikel'" class="my-6 grid">
                 <div class="flex my-2">
                     <div class="w-3/5 uppercase bg-white h-28 mr-2 rounded shadow flex justify-center items-center cursor-pointer"
                         @click="click.tryAnswer(options.option1)">
@@ -80,7 +80,7 @@ import SpinnerComponent from './shared/Spinner.component.vue';
 const store = useStore();
 const route = useRoute();
 const isLoading = ref(false);
-const progress = ref(25);
+const progress = ref(0);
 const width = ref('0px');
 const height = ref('0px');
 const assignmentTask = ref('Spielen');
@@ -93,6 +93,8 @@ const options = {
 const writeAnswer = ref('');
 const typeTask = ref('pick');
 
+const backgroundColor = ref('white');
+
 const getWidth = () => {
     let size = (window.innerWidth * (store.isMobileView ? 1 : 0.75));
     size = store.isMobileView ? size - 50 : Math.min(size, 520);
@@ -104,27 +106,72 @@ const getHeight = () => {
     height.value = `${size}px`;
 };
 
-const nextTask = () => {
-    const current: any = store.assignment[0];
-    assignmentTask.value = current.task;
-    const [option1, option2, option3, option4] = current.options;
-
-    options.option1 = option1;
-    options.option2 = option2;
-    options.option3 = option3;
-    options.option4 = option4;
-};
-
-onMounted(() => {
-    getWidth();
-    getHeight();
-
-    isLoading.value = true;
+const getAssignmerntPath = () => {
     let assignmentPath = 'assignment';
     const { category } = route.query;
     if (category) {
         assignmentPath += `_${category}`;
     }
+
+    return { assignmentPath, category };
+};
+const getAssignment = async () => {
+    let path = 'flash-cards';
+    isLoading.value = true;
+
+    const { assignmentPath, category } = getAssignmerntPath();
+
+    if (category) {
+        path += `?topic=${category}`;
+    }
+
+    return network({
+        method: 'GET',
+        path,
+        svc: 'svc',
+        auth: true,
+    })
+        .then((data) => {
+            localStorage.setItem(assignmentPath, JSON.stringify(data));
+            store.assignment = data as any;
+        })
+        .catch((err) => {
+            store.toast = { message: err.message, topic: 'networkError' };
+        }).finally(() => {
+            isLoading.value = false;
+        });
+};
+
+const nextTask = () => {
+    debugger;
+    const current: any = store.assignment[0];
+    if (current) {
+        assignmentTask.value = current.word;
+        if (current.task === 'pick' || current.task === 'artikel') {
+            const [option1, option2, option3, option4] = current.options;
+            options.option1 = option1;
+            options.option2 = option2;
+            options.option3 = option3;
+            options.option4 = option4;
+        }
+
+        typeTask.value = current.task;
+
+        progress.value = 100 - store.assignment.length * 10;
+    } else {
+        store.toast = {
+            message: 'Well done!!!',
+            topic: 'success',
+        };
+        getAssignment();
+    }
+};
+onMounted(() => {
+    getWidth();
+    getHeight();
+
+    isLoading.value = true;
+    const { assignmentPath } = getAssignmerntPath();
 
     const assignmentStored = localStorage.getItem(assignmentPath);
     if (assignmentStored) {
@@ -132,27 +179,9 @@ onMounted(() => {
         isLoading.value = false;
         nextTask();
     } else {
-        let path = 'flash-cards';
-        if (category) {
-            path += `?topic=${category}`;
-        }
-
-        network({
-            method: 'GET',
-            path,
-            svc: 'svc',
-            auth: true,
-        })
-            .then((data) => {
-                localStorage.setItem(assignmentPath, JSON.stringify(data));
-                store.assignment = data as never;
-                nextTask();
-            })
-            .catch((err) => {
-                store.toast = { message: err.message, topic: 'networkError' };
-            }).finally(() => {
-                isLoading.value = false;
-            });
+        getAssignment().then(() => {
+            nextTask();
+        });
     }
 });
 
@@ -161,12 +190,40 @@ window.addEventListener('resize', () => {
     getHeight();
 });
 
+const moveTaskToEnd = () => {
+    const currentTask = {} as Record<string, any>;
+    const current: any = store.assignment[0];
+    Object.assign(currentTask, current);
+
+    if (current) {
+        store.assignment = store.assignment.slice(1, store.assignment.length);
+        store.assignment.push(currentTask);
+        nextTask();
+    }
+};
+
 const click = {
     skip() {
-        console.log('click');
+        moveTaskToEnd();
     },
     tryAnswer(_word: string) {
-        console.log('click');
+        const current: any = store.assignment[0];
+        if (current) {
+            if (current.correct.trim().toLowerCase() === _word.trim().toLowerCase()) {
+                store.assignment = store.assignment.slice(1, store.assignment.length);
+                backgroundColor.value = '#96C5CF';
+                setTimeout(() => {
+                    backgroundColor.value = 'white';
+                    nextTask();
+                }, 2000);
+            } else {
+                backgroundColor.value = '#F4B9BA';
+                setTimeout(() => {
+                    backgroundColor.value = 'white';
+                    moveTaskToEnd();
+                }, 3000);
+            }
+        }
     },
 };
 

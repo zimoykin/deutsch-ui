@@ -14,7 +14,7 @@ export default defineStore('store', {
         backend_stage: process.env.VUE_APP_STAGE,
         env: process.env.VUE_APP_ENV || 'stage',
         toast: undefined as { message: string, topic?: MessageType; } | undefined,
-        assignment: [],
+        assignment: [] as Record<string, any>[],
     }),
     actions: {
         logout() {
