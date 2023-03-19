@@ -22,10 +22,10 @@
                 </div>
             </div>
 
-            <div class="relative rounded-md bg-white shadow-md uppercase" :style="{ width: width, height: height }">
-                <div class="absolute w-full h-full flex justify-end p-2 cursor-pointer"
-                    :style="{ zIndex: 7, color: 'gray' }" @click="click.skip()" @keydown.enter="click.skip()">
-                    <p>skip</p>
+            <div class="relative rounded-md shadow-md uppercase"
+                :style="{ width: width, height: height, backgroundColor: backgroundColor }">
+                <div class="absolute w-full h-full flex justify-end p-2" :style="{ zIndex: 7, color: 'gray' }">
+                    <p class="cursor-pointer" @click="click.skip()" @keydown.enter="click.skip()">skip</p>
                 </div>
                 <div class="absolute flex w-full h-full justify-center items-center text-center" :style="{
                     zIndex: 6
@@ -80,7 +80,7 @@ import SpinnerComponent from './shared/Spinner.component.vue';
 const store = useStore();
 const route = useRoute();
 const isLoading = ref(false);
-const progress = ref(25);
+const progress = ref(0);
 const width = ref('0px');
 const height = ref('0px');
 const assignmentTask = ref('Spielen');
@@ -92,6 +92,8 @@ const options = {
 };
 const writeAnswer = ref('');
 const typeTask = ref('pick');
+
+const backgroundColor = ref('white');
 
 const getWidth = () => {
     let size = (window.innerWidth * (store.isMobileView ? 1 : 0.75));
@@ -106,13 +108,17 @@ const getHeight = () => {
 
 const nextTask = () => {
     const current: any = store.assignment[0];
-    assignmentTask.value = current.task;
+    assignmentTask.value = current.word;
     const [option1, option2, option3, option4] = current.options;
+
+    typeTask.value = current.task;
 
     options.option1 = option1;
     options.option2 = option2;
     options.option3 = option3;
     options.option4 = option4;
+
+    progress.value = 100 - store.assignment.length * 10;
 };
 
 onMounted(() => {
@@ -161,12 +167,40 @@ window.addEventListener('resize', () => {
     getHeight();
 });
 
+const moveTaskToEnd = () => {
+    const currentTask = {} as Record<string, any>;
+    const current: any = store.assignment[0];
+    Object.assign(currentTask, current);
+
+    if (current) {
+        store.assignment = store.assignment.slice(1, store.assignment.length);
+        store.assignment.push(currentTask);
+        nextTask();
+    }
+};
+
 const click = {
     skip() {
-        console.log('click');
+        moveTaskToEnd();
     },
     tryAnswer(_word: string) {
-        console.log('click');
+        const current: any = store.assignment[0];
+        if (current) {
+            if (current.correct.trim().toLowerCase() === _word.trim().toLowerCase()) {
+                store.assignment = store.assignment.slice(1, store.assignment.length);
+                backgroundColor.value = 'green';
+                setTimeout(() => {
+                    backgroundColor.value = 'white';
+                    nextTask();
+                }, 2000);
+            } else {
+                backgroundColor.value = 'red';
+                setTimeout(() => {
+                    backgroundColor.value = 'white';
+                    moveTaskToEnd();
+                }, 3000);
+            }
+        }
     },
 };
 
