@@ -22,12 +22,12 @@
                 </div>
             </div>
 
-            <div class="relative rounded-md shadow-md uppercase"
+            <div class="relative rounded-md shadow-md"
                 :style="{ width: width, height: height, backgroundColor: backgroundColor }">
                 <div class="absolute w-full h-full flex justify-end p-2" :style="{ zIndex: 7, color: 'gray' }">
                     <p class="cursor-pointer" @click="click.skip()" @keydown.enter="click.skip()">skip</p>
                 </div>
-                <div class="absolute flex w-full h-full justify-center items-center text-center" :style="{
+                <div class="absolute lowercase flex w-full h-full justify-center items-center text-center" :style="{
                     zIndex: 6
                 }">
                     <h2>{{ assignmentTask }}</h2>
@@ -36,25 +36,25 @@
 
             <div v-if="typeTask === 'pick' || typeTask === 'artikel'" class="my-6 grid">
                 <div class="flex my-2">
-                    <div class="w-3/5 uppercase bg-white h-28 mr-2 rounded shadow flex justify-center items-center cursor-pointer"
+                    <div class="w-3/5 lowercase bg-white h-28 mr-2 rounded shadow flex justify-center items-center cursor-pointer"
                         @click="click.tryAnswer(options.option1)">
                         <p class="text-center">{{ options.option1 }}</p>
                     </div>
 
-                    <div class="w-2/5 uppercase bg-white h-28 rounded shadow flex justify-center items-center cursor-pointer"
+                    <div class="w-2/5 lowercase bg-white h-28 rounded shadow flex justify-center items-center cursor-pointer"
                         @click="click.tryAnswer(options.option2)">
                         <p class="text-center">{{ options.option2 }}</p>
                     </div>
                 </div>
 
                 <div class="flex">
-                    <div class="w-2/5 uppercase bg-white h-28 rounded shadow flex justify-center items-center cursor-pointer"
+                    <div class="w-2/5 lowercase bg-white h-28 rounded shadow flex justify-center items-center cursor-pointer"
                         @click="click.tryAnswer(options.option3)">
                         <p class="text-center">{{ options.option3 }}</p>
                     </div>
 
                     <div v-if="options.option4 && options.option4 != '___'"
-                        class="w-3/5 uppercase bg-white h-28 ml-2 rounded-md shadow-md flex justify-center items-center cursor-pointer"
+                        class="w-3/5 lowercase bg-white h-28 ml-2 rounded-md shadow-md flex justify-center items-center cursor-pointer"
                         @click="click.tryAnswer(options.option4)">
 
                         <p class="text-center">{{ options.option4 }}</p>
@@ -143,7 +143,6 @@ const getAssignment = async () => {
 };
 
 const nextTask = () => {
-    debugger;
     const current: any = store.assignment[0];
     if (current) {
         assignmentTask.value = current.word;
@@ -163,7 +162,9 @@ const nextTask = () => {
             message: 'Well done!!!',
             topic: 'success',
         };
-        getAssignment();
+        getAssignment().then(() => {
+            nextTask();
+        });
     }
 };
 onMounted(() => {
@@ -204,11 +205,19 @@ const moveTaskToEnd = () => {
 
 const click = {
     skip() {
-        moveTaskToEnd();
+        const current: any = store.assignment[0];
+        assignmentTask.value = current.correct.trim().toLowerCase();
+        backgroundColor.value = '#F6E4DA';
+        setTimeout(() => {
+            backgroundColor.value = 'white';
+            moveTaskToEnd();
+        }, 3000);
     },
     tryAnswer(_word: string) {
         const current: any = store.assignment[0];
+        writeAnswer.value = '';
         if (current) {
+            assignmentTask.value = current.correct.trim().toLowerCase();
             if (current.correct.trim().toLowerCase() === _word.trim().toLowerCase()) {
                 store.assignment = store.assignment.slice(1, store.assignment.length);
                 backgroundColor.value = '#96C5CF';
