@@ -8,7 +8,8 @@
         <router-view />
       </div>
     </div>
-    <Toast v-if="errorMessages.length" :messages="errorMessages" />
+    <Toast v-if="errorMessages.length" :messages="errorMessages"
+      :click="(e: number) => removeIndexFromErrorImeadeately(e)" />
   </div>
 </template>
 
@@ -20,9 +21,10 @@ import { ref, watch } from 'vue';
 import Toast from './components/shared/Toast.component.vue';
 import { MessageType } from './types/message-types.type';
 import { speaker } from './utils/speaker-bot';
+import { upsertTopics } from './utils/update-topics';
 
 const store = useStore();
-// let timeoutToast: number;
+upsertTopics();
 
 const errorMessages = ref<{ message: string; topic?: MessageType; speaker: string; }[]>([]);
 watch(() => store.toast, () => {
@@ -39,8 +41,15 @@ watch(() => store.toast, () => {
     }
 });
 
-const toastClick = () => {
-    errorMessages.value = [];
+const removeIndexFromErrorImeadeately = (index: number) => {
+    try {
+        errorMessages.value = errorMessages.value.filter((_, ind) => index !== ind);
+    } catch (error) {
+        store.toast = {
+            message: `app-vue ${error} index`,
+            topic: 'error',
+        };
+    }
 };
 
 window.addEventListener('resize', () => {

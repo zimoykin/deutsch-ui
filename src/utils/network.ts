@@ -3,17 +3,21 @@ import useStore from '@/store';
 
 export default async function <T> (params: {
     path: string,
-    method: 'POST' | 'GET' | 'PATCH' | 'PUT' | 'DELETE',
-    svc: ('auth' | 'svc'),
+    method?: 'POST' | 'GET' | 'PATCH' | 'PUT' | 'DELETE',
+    svc?: ('auth' | 'svc'),
     body?: any;
     auth?: boolean;
 }) {
+    const paramSvc = params.svc ? params.svc : 'svc';
+    const auth = params.auth ? params.auth : true;
+    const method = params.method ? params.method : 'GET';
+
     const store = useStore();
     const svc: string = (() => {
         switch (store.env) {
-            case 'stage': return params.svc === 'svc' ? store.backend_stage : store.backend_auth_stage;
-            case 'dev': return params.svc === 'svc' ? store.backend_dev : store.backend_auth_dev;
-            case 'prod': return params.svc === 'svc' ? store.backend_prod : store.backend_auth_prod;
+            case 'stage': return paramSvc === 'svc' ? store.backend_stage : store.backend_auth_stage;
+            case 'dev': return paramSvc === 'svc' ? store.backend_dev : store.backend_auth_dev;
+            case 'prod': return paramSvc === 'svc' ? store.backend_prod : store.backend_auth_prod;
             default: return undefined;
         }
     })();
@@ -23,9 +27,9 @@ export default async function <T> (params: {
     const config: AxiosRequestConfig = {
         method: params.method,
         url: `${svc}/${params.path}`.replaceAll('//', '/'),
-        data: params.method === 'POST' || params.method === 'PATCH' || params.method === 'PUT' ? params.body : undefined,
+        data: method === 'POST' || method === 'PATCH' || method === 'PUT' ? params.body : undefined,
     };
-    if (params.auth) {
+    if (auth) {
         const token = localStorage.getItem('accessToken');
         config.headers = { Authorization: `Bearer ${token}` };
     }
