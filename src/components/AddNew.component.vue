@@ -237,20 +237,22 @@ if (route.query.id) {
         eng: string,
         level: string,
         konjugation: IKonjugation,
-        examples: [];
+        examples: [],
+        topic: string[],
     }>({
         path: `word/${route.query.id}`,
     }).finally(() => {
         isLoading.value = false;
     }).then((data) => {
         debugger;
-        artikelSelected.value = data.artikel;
-        russianWord.value = data.ru;
-        englishWord.value = data.eng;
-        germanWord.value = data.ger;
+        artikelSelected.value = data.artikel?.toLowerCase();
+        russianWord.value = data.ru?.toLowerCase();
+        englishWord.value = data.eng?.toLowerCase();
+        germanWord.value = data.ger?.toLowerCase();
         level.value = data.level;
         examples.value = data.examples;
         konjugation.value = data.konjugation;
+        topics.value = data.topic.map((_) => _.toLowerCase());
         if (!data.level) {
             store.toast = {
                 message: 'no level',
