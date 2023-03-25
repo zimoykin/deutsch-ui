@@ -19,6 +19,7 @@
 <script setup lang="ts">
 import router from '@/router';
 import artikel from '@/types/artikel';
+import network from '@/utils/network';
 import { ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import SpinnerComponent from './shared/Spinner.component.vue';
@@ -62,16 +63,16 @@ watch(pickedLetter, () => {
     isLoading.value = true;
     showAlphabet.value = false;
     words.value = [];
-    setTimeout(() => {
+
+    isLoading.value = true;
+    network<any>({ path: `/word/starts-with/${pickedLetter.value?.toLowerCase()}` }).then((
+        data,
+    ) => {
+        words.value = data;
+    }).finally(() => {
         isLoading.value = false;
         showAlphabet.value = true;
-        words.value = [
-            { ger: 'Spielen', eng: 'Play', rus: 'играть' },
-            {
-                artikel: artikel.der, ger: 'Spigel', eng: 'Mirror', rus: 'Зеркало',
-            },
-        ];
-    }, 3000);
+    });
 });
 
 </script>

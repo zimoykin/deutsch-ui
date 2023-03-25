@@ -1,117 +1,123 @@
 <template>
-    <div class="grid my-2">
-        <div class="animation-3x flex items-center justify-center mx-1 bg-red-400 bg-opacity-30 rounded-md py-2 px-1">
-            <div class="mr-1">
-                <label for="artikel" class="rounded-md grid items-center justify-center">
-                    <p class="text-left">TYPE</p>
-                    <select :class="dynamicStyles" id="wordType" type="text" v-model="wordType">
-                        <option v-for="(key) in Object.keys(WORD_TYPE)" :key="key" :value="key">{{ key.toUpperCase() }}
-                        </option>
-                    </select>
-                </label>
-            </div>
-            <div class="ml-1">
-                <label for="germanWord" class="rounded-md grid ml-1 w-full">
-                    <p class="text-left">GERMAN</p>
-                    <input :class="dynamicStyles" id="germanWord" type="text" v-model="germanWord">
-                </label>
-            </div>
-        </div>
-
-        <div class="animation-3x flex items-center justify-center mx-1 bg-gray-500 bg-opacity-30 rounded-md py-2 px-1">
-
-            <div class="h-full" v-if="wordType === WORD_TYPE.noun || wordType === WORD_TYPE.verb">
-                <div class="" v-if="wordType === WORD_TYPE.noun">
+    <div v-if="isLoading">
+        <SpinnerComponent />
+    </div>
+    <div v-else>
+        <div class="grid my-2">
+            <div class="animation-3x flex items-center justify-center mx-1 bg-red-400 bg-opacity-30 rounded-md py-2 px-1">
+                <div class="mr-1">
                     <label for="artikel" class="rounded-md grid items-center justify-center">
-                        <p class="text-left">ARTIKEL</p>
-                        <select :class="dynamicStyles" id="artikel" type="text" v-model="artikelSelected">
-                            <option v-for="(key) in Object.keys(artikel)" :key="key" :value="key">{{ key.toUpperCase() }}
+                        <p class="text-left">TYPE</p>
+                        <select :class="dynamicStyles" id="wordType" type="text" v-model="wordType">
+                            <option v-for="(key) in Object.keys(WORD_TYPE)" :key="key" :value="key">{{ key.toUpperCase() }}
                             </option>
                         </select>
                     </label>
                 </div>
-                <div class="ml-1" v-if="wordType === WORD_TYPE.verb">
-                    <label for="partizip2" class="rounded-md grid items-center justify-center">
-                        <p class="text-left">PARTIZIP II</p>
-                        <input :class="dynamicStyles" id="partizip2" type="text" v-model="partizip2">
+                <div class="ml-1">
+                    <label for="germanWord" class="rounded-md grid ml-1 w-full">
+                        <p class="text-left">GERMAN</p>
+                        <input :class="dynamicStyles" id="germanWord" type="text" v-model="germanWord">
                     </label>
                 </div>
             </div>
 
-            <div class="ml-2">
-                <div class="grid w-22 justify-center items-center">
-                    <div v-if="wordType === WORD_TYPE.verb" :class="dynamicStyles"
-                        class="cursor-pointe bg-slate-400 text-white p-2 rounded shadow mb-2"
-                        @click="showKonjugation = !showKonjugation">
-                        <p>konjugation</p>
+            <div class="animation-3x flex items-center justify-center mx-1 bg-gray-500 bg-opacity-30 rounded-md py-2 px-1">
+
+                <div class="h-full" v-if="wordType === WORD_TYPE.noun || wordType === WORD_TYPE.verb">
+                    <div class="" v-if="wordType === WORD_TYPE.noun">
+                        <label for="artikel" class="rounded-md grid items-center justify-center">
+                            <p class="text-left">ARTIKEL</p>
+                            <select :class="dynamicStyles" id="artikel" type="text" v-model="artikelSelected">
+                                <option v-for="(key) in Object.keys(artikel)" :key="key" :value="key">{{ key.toUpperCase()
+                                }}
+                                </option>
+                            </select>
+                        </label>
                     </div>
-                    <div class="cursor-pointe bg-slate-500 text-white p-2 rounded shadow"
-                        @click="showExamples = !showExamples">
-                        <p>examples</p>
+                    <div class="ml-1" v-if="wordType === WORD_TYPE.verb">
+                        <label for="partizip2" class="rounded-md grid items-center justify-center">
+                            <p class="text-left">PARTIZIP II</p>
+                            <input :class="dynamicStyles" id="partizip2" type="text" v-model="partizip2">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="ml-2">
+                    <div class="grid w-22 justify-center items-center">
+                        <div v-if="wordType === WORD_TYPE.verb" :class="dynamicStyles"
+                            class="cursor-pointe bg-slate-400 text-white p-2 rounded shadow mb-2"
+                            @click="showKonjugation = !showKonjugation">
+                            <p>konjugation</p>
+                        </div>
+                        <div class="cursor-pointe bg-slate-500 text-white p-2 rounded shadow"
+                            @click="showExamples = !showExamples">
+                            <p>examples</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="animation-2x flex items-center justify-center m-2 bg-slate-400 bg-opacity-30 rounded-md py-2 px-1">
-            <div class="items-center justify-center mr-1">
-                <label for="englishWord" class="rounded-md grid items-center justify-center">
-                    <p class="text-left">ENGLISH</p>
+            <div class="animation-2x flex items-center justify-center m-2 bg-slate-400 bg-opacity-30 rounded-md py-2 px-1">
+                <div class="items-center justify-center mr-1">
+                    <label for="englishWord" class="rounded-md grid items-center justify-center">
+                        <p class="text-left">ENGLISH</p>
 
-                    <input :class="dynamicStyles" id="englishWord" type="text" v-model="englishWord">
+                        <input :class="dynamicStyles" id="englishWord" type="text" v-model="englishWord">
 
-                </label>
-            </div>
-            <div class="items-center justify-center ml-1">
-                <label for="russianWord" class=" rounded-md grid items-center justify-center">
-                    <p class="text-left">RUSSIAN</p>
-                    <span class="block bg-gray-500 rounded-md">
-                        <input :class="dynamicStyles" id="russianWord" type="text" v-model="russianWord">
-                    </span>
-                </label>
-            </div>
-        </div>
-
-        <div class="animation-3x flex justify-center mx-2 bg-blue-400 bg-opacity-30 rounded-md py-2 px-1">
-            <div class="justify-center mr-1">
-                <label for="level">
-                    <p class="text-left">LEVEL</p>
-                    <span class="block bg-gray-500 rounded-md">
-                        <select :class="dynamicStyles" id="level" type="text" v-model="level">
-                            <option v-for="key in ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']" :key="key" :value="key">{{
-                                key.toUpperCase() }}
-                            </option>
-                        </select>
-                    </span>
-                </label>
-            </div>
-
-            <div class="items-center justify-center ml-1">
-                <label for="topics">
-                    <p class="text-left">TOPICS</p>
-                    <div class="mb-2" v-for="(value, index) in topics" :key="index">
+                    </label>
+                </div>
+                <div class="items-center justify-center ml-1">
+                    <label for="russianWord" class=" rounded-md grid items-center justify-center">
+                        <p class="text-left">RUSSIAN</p>
                         <span class="block bg-gray-500 rounded-md">
-                            <input :class="dynamicStyles" id="topics" type="text" :value="value"
-                                @input="(e) => updateTopic(e, index)">
+                            <input :class="dynamicStyles" id="russianWord" type="text" v-model="russianWord">
                         </span>
-                    </div>
-                    <button class="bg-slate-500 text-white p-3 rounded shadow-md font-bold" @click="addTopic()">
-                        <p>+</p>
-                    </button>
-                </label>
+                    </label>
+                </div>
+            </div>
+
+            <div class="animation-3x flex justify-center mx-2 bg-blue-400 bg-opacity-30 rounded-md py-2 px-1">
+                <div class="justify-center mr-1">
+                    <label for="level">
+                        <p class="text-left">LEVEL</p>
+                        <span class="block bg-gray-500 rounded-md">
+                            <select :class="dynamicStyles" id="level" type="text" v-model="level">
+                                <option v-for="key in ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']" :key="key" :value="key">{{
+                                    key.toUpperCase() }}
+                                </option>
+                            </select>
+                        </span>
+                    </label>
+                </div>
+
+                <div class="items-center justify-center ml-1">
+                    <label for="topics">
+                        <p class="text-left">TOPICS</p>
+                        <div class="mb-2" v-for="(value, index) in topics" :key="index">
+                            <span class="block bg-gray-500 rounded-md">
+                                <input :class="dynamicStyles" id="topics" type="text" :value="value"
+                                    @input="(e) => updateTopic(e, index)">
+                            </span>
+                        </div>
+                        <button class="bg-slate-500 text-white p-3 rounded shadow-md font-bold" @click="addTopic()">
+                            <p>+</p>
+                        </button>
+                    </label>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="animation-x absolute bottom-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div class="bg-green-300 px-8 py-2 rounded shadow cursor-pointer hover:bg-green-400">
-            <p>SAVE</p>
+        <div class="animation-x absolute bottom-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div class="bg-green-300 px-8 py-2 rounded shadow cursor-pointer hover:bg-green-400" @click="click.save()">
+                <p>SAVE</p>
+            </div>
         </div>
-    </div>
 
-    <DialogModal :visible="showKonjugation" :on-close="onCloseKonjugationWindow" :component="AddKonjugation"
-        :through-props="konjugation" />
-    <DialogModal :visible="showExamples" :on-close="onCloseExamplesWindow" :component="AddExamples"
-        :through-props="examples" />
+        <DialogModal :visible="showKonjugation" :on-close="onCloseKonjugationWindow" :component="AddKonjugation"
+            :through-props="konjugation" />
+        <DialogModal :visible="showExamples" :on-close="onCloseExamplesWindow" :component="AddExamples"
+            :through-props="examples" />
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -123,8 +129,12 @@ import AddKonjugation from '@/components/modal/Konjugation.component.vue';
 import AddExamples from '@/components/modal/Examples.component.vue';
 import { ref } from 'vue';
 import { IKonjugation } from '@/types/konjugation.interface';
+import network from '@/utils/network';
+import { useRoute } from 'vue-router';
+import SpinnerComponent from './shared/Spinner.component.vue';
 
 const store = useStore();
+const route = useRoute();
 const artikelSelected = ref();
 const wordType = ref();
 const partizip2 = ref();
@@ -135,6 +145,7 @@ const level = ref('A1');
 const topics = ref(['basic', 'Wetter']);
 const showKonjugation = ref(false);
 const showExamples = ref(false);
+const isLoading = ref(false);
 
 const konjugation = ref<IKonjugation>({
     ich: undefined,
@@ -177,5 +188,83 @@ const updateTopic = (value: Record<string, any>, index: number) => {
         data = value.data;
     }
 };
+
+const click = {
+    save() {
+        isLoading.value = true;
+        const body = {
+            ger: germanWord.value,
+            eng: englishWord.value,
+            ru: russianWord.value,
+        } as any;
+
+        body.topic = topics.value;
+
+        if (artikelSelected.value) {
+            body.artikel = artikelSelected.value;
+        }
+
+        if (konjugation.value) {
+            body.konjugation = konjugation.value;
+        }
+
+        network({
+            method: 'POST',
+            path: '/word',
+            body,
+        }).then(() => {
+            store.toast = {
+                message: 'Done!',
+                topic: 'success',
+            };
+        }).catch((err) => {
+            store.toast = {
+                message: `error ${err.message}`,
+                topic: 'error',
+            };
+        }).finally(() => {
+            isLoading.value = false;
+        });
+    },
+};
+
+if (route.query.id) {
+    isLoading.value = true;
+    network<{
+        artikel: string,
+        ger: string,
+        ru: string,
+        eng: string,
+        level: string,
+        konjugation: IKonjugation,
+        examples: [],
+        topic: string[],
+    }>({
+        path: `word/${route.query.id}`,
+    }).finally(() => {
+        isLoading.value = false;
+    }).then((data) => {
+        debugger;
+        artikelSelected.value = data.artikel?.toLowerCase();
+        russianWord.value = data.ru?.toLowerCase();
+        englishWord.value = data.eng?.toLowerCase();
+        germanWord.value = data.ger?.toLowerCase();
+        level.value = data.level;
+        examples.value = data.examples;
+        konjugation.value = data.konjugation;
+        topics.value = data.topic.map((_) => _.toLowerCase());
+        if (!data.level) {
+            store.toast = {
+                message: 'no level',
+                topic: 'error',
+            };
+        }
+    }).catch((err) => {
+        store.toast = {
+            message: JSON.stringify(err),
+            topic: 'error',
+        };
+    });
+}
 
 </script>
