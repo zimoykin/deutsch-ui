@@ -82,8 +82,8 @@
                         <p class="text-left">LEVEL</p>
                         <span class="block bg-gray-500 rounded-md">
                             <select :class="dynamicStyles" id="level" type="text" v-model="level">
-                                <option v-for="key in ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']" :key="key" :value="key">{{
-                                    key.toUpperCase() }}
+                                <option v-for="key in ['a1', 'a2', 'b1', 'b2', 'c1', 'c2']" :key="key" :value="key">{{
+                                    key.toLowerCase() }}
                                 </option>
                             </select>
                         </span>
@@ -196,6 +196,8 @@ const click = {
             ger: germanWord.value,
             eng: englishWord.value,
             ru: russianWord.value,
+            type: wordType.value,
+            level: level.value,
         } as any;
 
         body.topic = topics.value;
@@ -239,6 +241,7 @@ if (route.query.id) {
         konjugation: IKonjugation,
         examples: [],
         topic: string[],
+        type: string,
     }>({
         path: `word/${route.query.id}`,
     }).finally(() => {
@@ -253,6 +256,7 @@ if (route.query.id) {
         examples.value = data.examples;
         konjugation.value = data.konjugation;
         topics.value = data.topic.map((_) => _.toLowerCase());
+        wordType.value = data.type;
         if (!data.level) {
             store.toast = {
                 message: 'no level',
