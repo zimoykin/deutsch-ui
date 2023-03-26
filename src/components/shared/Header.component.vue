@@ -3,7 +3,8 @@
     <div :style="store.isMobileView ? { width: '100%', } : { maxWidth: '1080px', width: '75%', }"
       class="flex rounded-md justify-center items-center bg-white shadow-xl">
       <p @keydown.enter="goToHome()" @click="goToHome()" class="cursor-pointer text-3xl  mx-1 p-1 rounded-md">🏠</p>
-      <input class="w-full my-2 p-1 bg-white text-center rounded-md" placeholder="type here..." v-model="searchInput">
+      <input @keydown.enter="click.goSearch()" class="w-full my-2 p-1 bg-white text-center rounded-md"
+        placeholder="type here..." v-model="searchInput">
     </div>
   </div>
 </template>
@@ -16,6 +17,13 @@ import router from '@/router';
 const store = useStore();
 const searchInput = ref();
 let timeoutId: number;
+
+const click = {
+    goSearch() {
+        router.push(`/search?word=${searchInput.value}`);
+    },
+};
+
 watch(() => searchInput.value, () => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => {
