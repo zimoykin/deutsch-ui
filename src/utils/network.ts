@@ -26,7 +26,8 @@ export default async function <T> (params: {
 
     const config: AxiosRequestConfig = {
         method: params.method,
-        url: `${svc}/${params.path}`.replaceAll('//', '/'),
+        baseURL: `${svc}`,
+        url: `${params.path}`.replaceAll('//', '/'),
         data: method === 'POST' || method === 'PATCH' || method === 'PUT' ? params.body : undefined,
     };
     if (auth) {

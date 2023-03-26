@@ -3,7 +3,9 @@
         <div class="m-1">
             <p class="text-left"> KONJUGATION: </p>
             <div class="grid text-center mb-1">
-                <input placeholder="ich" class="p-2 text-center mx-4 my-1 rounded shadow" v-model="ich" />
+                <input
+                @paste="onPaste"
+                placeholder="ich" class="p-2 text-center mx-4 my-1 rounded shadow" v-model="ich" />
                 <input placeholder="du" class="p-2 text-center mx-4 my-1 rounded shadow" v-model="du" />
                 <input placeholder="er-sie-es" class="p-2 text-center mx-4 my-1 rounded shadow" v-model="erSieEs" />
                 <input placeholder="wir" class="p-2 text-center mx-4 my-1 rounded shadow" v-model="wir" />
@@ -22,6 +24,7 @@
 </template>
 
 <script setup lang="ts">
+import { inputParser } from '@/utils/input-parser';
 import { ref, defineProps, onMounted } from 'vue';
 
 const ich = ref('');
@@ -57,6 +60,30 @@ const save = () => {
         ihr: ihr.value,
         sie: sie.value,
     });
+};
+
+const onPaste = async (e: any) => {
+    const reader = inputParser(e.clipboardData.getData('text'));
+
+    setTimeout(() => {
+        let iteration = reader.next();
+        ich.value = iteration.value || '';
+
+        iteration = reader.next();
+        du.value = iteration.value || '';
+
+        iteration = reader.next();
+        erSieEs.value = iteration.value || '';
+
+        iteration = reader.next();
+        wir.value = iteration.value || '';
+
+        iteration = reader.next();
+        ihr.value = iteration.value || '';
+
+        iteration = reader.next();
+        sie.value = iteration.value || '';
+    }, 1000);
 };
 
 </script>

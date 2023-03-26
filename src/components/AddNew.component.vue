@@ -206,7 +206,7 @@ const click = {
             body.artikel = artikelSelected.value;
         }
 
-        if (konjugation.value) {
+        if (wordType.value === 'verb' && konjugation.value) {
             body.konjugation = konjugation.value;
         }
 
