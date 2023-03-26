@@ -1,5 +1,6 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import { AxiosRequestConfig } from 'axios';
 import useStore from '@/store';
+import { init } from './axios-instance';
 
 export default async function <T> (params: {
     path: string,
@@ -35,7 +36,11 @@ export default async function <T> (params: {
         config.headers = { Authorization: `Bearer ${token}` };
     }
 
-    const { data } = await axios.request<T>(config);
+    const axios = init();
+    const { data, status } = await axios.request<T>(config);
 
-    return data as T;
+    if (status === 200 || status === 201) {
+        return data as T;
+    }
+    throw new Error('network error');
 }
