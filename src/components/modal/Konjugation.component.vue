@@ -3,9 +3,7 @@
         <div class="m-1">
             <p class="text-left"> KONJUGATION: </p>
             <div class="grid text-center mb-1">
-                <input
-                @paste="onPaste"
-                placeholder="ich" class="p-2 text-center mx-4 my-1 rounded shadow" v-model="ich" />
+                <input @paste="onPaste" placeholder="ich" class="p-2 text-center mx-4 my-1 rounded shadow" v-model="ich" />
                 <input placeholder="du" class="p-2 text-center mx-4 my-1 rounded shadow" v-model="du" />
                 <input placeholder="er-sie-es" class="p-2 text-center mx-4 my-1 rounded shadow" v-model="erSieEs" />
                 <input placeholder="wir" class="p-2 text-center mx-4 my-1 rounded shadow" v-model="wir" />
@@ -43,12 +41,12 @@ const props = defineProps({
 });
 
 onMounted(() => {
-    ich.value = props.main.ich;
-    du.value = props.main.du;
-    erSieEs.value = props.main.erSieEs;
-    wir.value = props.main.wir;
-    ihr.value = props.main.ihr;
-    sie.value = props.main.sie;
+    ich.value = props.main?.ich || '';
+    du.value = props.main?.du || '';
+    erSieEs.value = props.main?.erSieEs || '';
+    wir.value = props.main?.wir || '';
+    ihr.value = props.main?.ihr || '';
+    sie.value = props.main?.sie || '';
 });
 
 const save = () => {
