@@ -47,7 +47,7 @@
                     <div class="grid w-22 justify-center items-center">
                         <div v-if="wordType === WORD_TYPE.verb" :class="dynamicStyles"
                             class="cursor-pointe bg-slate-400 text-white p-2 rounded shadow mb-2"
-                            @click="showKonjugation = !showKonjugation">
+                            @click="konjugationVisibility = !konjugationVisibility">
                             <p>konjugation</p>
                         </div>
                         <div class="cursor-pointe bg-slate-500 text-white p-2 rounded shadow"
@@ -113,7 +113,7 @@
             </div>
         </div>
 
-        <DialogModal :visible="showKonjugation" :on-close="onCloseKonjugationWindow" :component="AddKonjugation"
+        <DialogModal :visible="konjugationVisibility" :on-close="onCloseKonjugationWindow" :component="AddKonjugation"
             :through-props="konjugation" />
         <DialogModal :visible="showExamples" :on-close="onCloseExamplesWindow" :component="AddExamples"
             :through-props="examples" />
@@ -143,35 +143,36 @@ const englishWord = ref();
 const russianWord = ref();
 const level = ref('A1');
 const topics = ref(['basic', 'Wetter']);
-const showKonjugation = ref(false);
 const showExamples = ref(false);
 const isLoading = ref(false);
+const konjugationVisibility = ref(false);
 
 const konjugation = ref<IKonjugation>({
-    ich: undefined,
-    du: undefined,
-    erSieEs: undefined,
-    wir: undefined,
-    ihr: undefined,
-    sie: undefined,
+    ich: '',
+    du: '',
+    erSieEs: '',
+    wir: '',
+    ihr: '',
+    sie: '',
 });
 
 const examples = ref<Array<string>>(['']);
 
 const onCloseKonjugationWindow = (props: Record<string, any>) => {
+    konjugationVisibility.value = false;
     console.log('closed konjugation', props);
-    showKonjugation.value = false;
-    Object.keys(props).forEach((key) => {
-        if (Object.keys(konjugation.value).includes(key)) {
-            konjugation.value[key as keyof IKonjugation] = props[key];
-        }
-    });
-    console.log(konjugation.value);
+    if (props) {
+        Object.keys(props).forEach((key) => {
+            if (key && Object.keys(konjugation.value).includes(key)) {
+                konjugation.value[key as keyof IKonjugation] = props[key];
+            }
+        });
+    }
 };
 
 const onCloseExamplesWindow = (props: string[]) => {
-    console.log('closed onCloseExamplesWindow', props);
     showExamples.value = false;
+    examples.value = props;
 };
 
 const dynamicStyles = ref('w-44 lg:w-96 md:w-80 sm:w-50 p-2 rounded-md shadow-md');
@@ -242,6 +243,7 @@ if (route.query.id) {
         examples: [],
         topic: string[],
         type: string,
+        partizip2?: string
     }>({
         path: `word/${route.query.id}`,
     }).finally(() => {
@@ -257,6 +259,7 @@ if (route.query.id) {
         konjugation.value = data.konjugation;
         topics.value = data.topic.map((_) => _.toLowerCase());
         wordType.value = data.type;
+        partizip2.value = data.partizip2;
         if (!data.level) {
             store.toast = {
                 message: 'no level',

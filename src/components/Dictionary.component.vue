@@ -8,9 +8,13 @@
             </div>
         </div>
     </div>
-    <div v-for="item in words" :key="item.ger">
-        <WordPreviewComponent :word="item" />
+
+    <div class="h-[calc(100%_-_5rem)] overflow-y-scroll">
+        <div v-for="item in words" :key="item.ger">
+            <WordPreviewComponent :word="item" />
+        </div>
     </div>
+
     <div v-if="isLoading">
         <SpinnerComponent />
     </div>
@@ -18,7 +22,6 @@
 
 <script setup lang="ts">
 import router from '@/router';
-import artikel from '@/types/artikel';
 import network from '@/utils/network';
 import { ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
