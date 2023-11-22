@@ -25,7 +25,7 @@ const onClick = {
                 <p> {{ props.word?.artikel }} </p>
             </div>
             <div class="w-2/5">
-                <p>{{ props.word?.ger }}</p>
+                <p>{{ props.word?.de }}</p>
             </div>
             <div class="w-2/5">
                 <p>{{ props.word?.ru }}</p>

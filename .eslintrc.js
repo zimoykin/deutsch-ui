@@ -21,5 +21,6 @@ module.exports = {
         'vuejs-accessibility/click-events-have-key-events': 'off',
         'import/prefer-default-export': 'off',
         'no-shadow': 'off',
+        camelcase: 'off',
     },
 };

@@ -10,7 +10,7 @@
     </div>
 
     <div class="h-[calc(100%_-_5rem)] overflow-y-scroll">
-        <div v-for="item in words" :key="item.ger">
+        <div v-for="item in words" :key="item.de">
             <WordPreviewComponent :word="item" />
         </div>
     </div>
@@ -36,7 +36,7 @@ const isLoading = ref(false);
 const showAlphabet = ref(true);
 const words = ref<{
     artikel?: string,
-    ger: string, eng: string, rus: string;
+    de: string, eng: string, rus: string;
 }[]>([]);
 
 const items = computed(() => {
