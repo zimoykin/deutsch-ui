@@ -62,6 +62,12 @@ const routes: Array<RouteRecordRaw> = [
         component: Universal,
         props: { page: 'category' },
     },
+    {
+        path: '/admin',
+        name: 'admin',
+        component: Universal,
+        props: { page: 'admin' },
+    },
 ];
 
 const router = createRouter({

@@ -45,6 +45,9 @@ const colors = {
     category: {
         'background': 'linear-gradient(16deg, rgba(146,201,200,0.7) 0%, rgba(238,174,202,1) 65%, rgba(148,187,233,1) 100%)',
     },
+    admin: {
+        background: 'radial-gradient(circle, rgba(238,174,202,1) 26%, rgba(148,187,233,1) 100%)'
+    },
 } as const;
 
 function useBackgroundColor(
