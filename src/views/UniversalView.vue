@@ -2,7 +2,7 @@
     <Container
         class="shadow-2xl"
         :style="{ ...backgroundColor, width: '100%', transition: 'background-color 1s', 'animation-delay': '1s' }"
-        :component="[compHome, compProfile, compAddNew, compRandom, compDictionary, compKonjugation, compSearch, compCategory, compFlashCard]"
+        :component="[compHome, compProfile, compAddNew, compRandom, compDictionary, compKonjugation, compSearch, compCategory, compFlashCard, compAdmin]"
         :activeTab="activeTab" />
 </template>
 
@@ -21,6 +21,7 @@ import Search from '@/components/Search.component.vue';
 import Category from '@/components/Category.component.vue';
 import FlashCardComponent from '@/components/FlashCard.component.vue';
 import { useBackgroundColor } from '@/composable/useBackgroundColor';
+import AdminComponent from '@/components/Admin.component.vue';
 //
 const props = defineProps({
     page: String,
@@ -37,6 +38,7 @@ const compKonjugation = markRaw(Konjugation);
 const compSearch = markRaw(Search);
 const compCategory = markRaw(Category);
 const compFlashCard = markRaw(FlashCardComponent);
+const compAdmin = markRaw(AdminComponent);
 
 const determineIndexPage = (): number => {
     switch (props.page) {
@@ -49,6 +51,7 @@ const determineIndexPage = (): number => {
         case 'search': return 6;
         case 'category': return 7;
         case 'flashCard': return 8;
+        case 'admin': return 9;
         default: return 0;
     }
 };
