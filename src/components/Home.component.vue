@@ -16,8 +16,8 @@
         <div class="flex justify-center m-1">
             <div :style="{ width: width33, height }"
                 class="animation-3x rounded-lg shadow-xl items-center justify-center flex bg-[#F6E4DA] mr-2 cursor-pointer bg-opacity-50"
-                @click="click.addNew()" @keydown="click.addNew()">
-                <p> ADD NEW</p>
+                @click="click.admin()" @keydown="click.admin()">
+                <p> ADMIN </p>
             </div>
             <div :style="{ width: width66, height }"
                 class="animation-2x rounded-lg shadow-xl items-center justify-center flex bg-[#C2DDD6] cursor-pointer bg-opacity-50"
@@ -84,6 +84,9 @@ const click = {
     },
     random() {
         router.push('/random');
+    },
+    admin() {
+        router.push('/admin');
     },
 };
 

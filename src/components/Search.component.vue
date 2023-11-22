@@ -2,7 +2,7 @@
     <div v-if="isLoading">
         <SpinnerComponent />
     </div>
-    <div v-else v-for="item in result" :key="String(item.ger)">
+    <div v-else v-for="item in result" :key="String(item.de)">
         <WordPreviewComponent :word="item" />
     </div>
 </template>
