@@ -13,7 +13,7 @@
                         @click="click.addNew()" @keydown="click.addNew()">
                         <p> {{ 'add new word' }}</p>
                     </div>
-                    <div v-if="categories[page][1]" :style="{ width: width33, height }"
+                    <div :style="{ width: width33, height }"
                         class="animation-x rounded-lg shadow-md items-center justify-center flex bg-[#F4B9BA] cursor-pointer bg-opacity-50"
                         @click="click.test()" @keydown="click.test()">
                         <p> {{ 'test' }}</p>
@@ -40,39 +40,6 @@ const width66 = ref('0px');
 const width33 = ref('0px');
 const height = ref('0px');
 const isLoading = ref(false);
-
-const categories = ref([] as string[][]);
-const page = ref(0);
-
-const prepareCategories = (value: string[]) => {
-    const numOfGroup = value.length % 4;
-    categories.value = [];
-    for (let i = 0; i < numOfGroup;) {
-        const group = [];
-        for (let j = 0; j < 4; j += 1) {
-            if (value[i * 4 + j]) {
-                group.push(value[i * 4 + j]);
-            }
-        }
-        i += 1;
-        categories.value.push(group);
-    }
-
-    console.log(categories.value);
-};
-
-isLoading.value = true;
-network<string[]>({ method: 'GET', svc: 'svc', path: 'topic' })
-    .then((data) => {
-        prepareCategories(data);
-    }).catch((err: Error) => {
-        store.toast = {
-            message: err.message,
-            topic: 'networkError',
-        };
-    }).finally(() => {
-        isLoading.value = false;
-    });
 
 const width = () => {
     let size = (window.innerWidth * (store.isMobileView ? 1 : 0.75));
